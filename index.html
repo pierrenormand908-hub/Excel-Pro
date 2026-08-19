@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Excel Pro</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f2f5fa;
+  color: #222;
+  transition: background-color .3s, color .3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dark {
+  background: #1c1c1e;
+  color: #eee;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 15px 15px 110px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin: 5px 0 15px;
+}
+
+/* Recherche */
+#search {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #c9d3e0;
+  font-size: 15px;
+  margin: 0 0 15px;
+  display: block;
+  outline: none;
+  background: #fff;
+  color: inherit;
+}
+.dark #search {
+  background: #2c2c2e;
+  border-color: #444;
+  color: #fff;
+}
+
+/* Cartes */
+.card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  position: relative;
+  overflow: hidden;
+  transition: background-color .3s, color .3s;
+}
+.dark .card {
+  background: #2c2c2e;
+}
+
+.actionText {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  padding-right: 30px;
+}
+
+.desc {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 8px;
+  gap: 8px;
+}
+
+.col {
+  width: 50%;
+}
+.colTitle {
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  opacity: .6;
+  text-transform: uppercase;
+}
+
+/* Touches style clavier */
+.key {
+  display: inline-block;
+  padding: 3px 6px;
+  background: #fff;
+  border: 1px solid #c3c7d1;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+  margin: 1px;
+}
+.dark .key {
+  background: #3a3a3c;
+  border-color: #555;
+  color: white;
+}
+
+.win, .mac {
+  font-size: 13px;
+  margin-right: 2px;
+}
+
+/* Favoris */
+.fav {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #c5c1c1;
+  user-select: none;
+}
+.fav.active {
+  color: #ffcc00;
+}
+
+/* Actions rapides sur la carte */
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+.dark .card-actions {
+  border-top-color: rgba(255,255,255,0.08);
+}
+
+.action-icon-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  padding: 3px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: #666;
+}
+.dark .action-icon-btn {
+  color: #bdbdbd;
+}
+
+/* Boutons cachés (glissement swipe) */
+.deleteBtn {
+  position: absolute;
+  right: -80px;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: #ff3b30;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  border-radius: 0 12px 12px 0;
+  transition: right .25s ease;
+}
+
+.editBtn {
+  position: absolute;
+  left: -80px;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: #007aff;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  border-radius: 12px 0 0 12px;
+  transition: left .25s ease;
+}
+
+/* Barre de navigation fixe (Optimisée iOS) */
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.dark .menu {
+  background: rgba(44, 44, 46, 0.95);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 14%;
+  height: 100%;
+}
+.menu img {
+  width: 22px;
+  height: 22px;
+  opacity: .75;
+  transition: opacity .2s, transform .2s;
+}
+
+/* Style de l'icône fx */
+.fx-icon {
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  font-family: Georgia, "Times New Roman", serif;
+  opacity: .75;
+  transition: opacity .2s, transform .2s;
+  user-select: none;
+  line-height: 1;
+}
+
+.menu-item.active img, .menu-item.active .fx-icon {
+  opacity: 1;
+  transform: scale(1.1);
+  color: #007aff;
+}
+
+/* Fenêtres Popup (Optimisées en taille) */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88%;
+  max-width: 380px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  display: none;
+  z-index: 9999;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.dark .popup {
+  background: #2c2c2e;
+  color: #eee;
+}
+
+.popup-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.popup label {
+  font-size: 13px;
+  margin-top: 8px;
+  display: block;
+  font-weight: 600;
+}
+
+.popup input, .popup select {
+  width: 100%;
+  margin-top: 3px;
+  padding: 7px 9px;
+  border-radius: 6px;
+  border: 1px solid #d0bfbf;
+  font-size: 14px;
+  background: #fff;
+  color: #222;
+}
+.dark .popup input, .dark .popup select {
+  background: #3a3a3c;
+  border-color: #555;
+  color: #fff;
+}
+
+/* Boutons réduits */
+.popup button, .btn-small {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #007aff;
+  color: white;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.popup button.secondary {
+  background: #8e8e93;
+  margin-top: 6px;
+}
+
+/* Fenêtre symboles Mac */
+#macSymbols {
+  top: 45%;
+  width: 80%;
+  padding: 10px;
+}
+
+.macKey {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border: 1px solid #d5d0d0;
+  border-radius: 6px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+.dark .macKey {
+  background: #3a3a3c;
+  color: white;
+  border-color: #555;
+}
+
+/* Catégories */
+.category {
+  font-weight: bold;
+  margin: 12px 0 6px;
+  font-size: 16px;
+  color: #007aff;
+}
+.dark .category {
+  color: #0a84ff;
+}
+
+/* Grille de paramètres */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+  <h1 id="title">Excel Pro</h1>
+  <input id="search" placeholder="Chercher…">
+  <div id="list"></div>
+</div>
+
+<!-- Fenêtre Ajouter -->
+<div id="addPopup" class="popup">
+  <h3 class="popup-title">Ajouter un élément</h3>
+  
+  <label>Type</label>
+  <select id="addType" onchange="toggleAddFields()">
+    <option value="raccourcis" selected>Raccourci</option>
+    <option value="formules">Formule</option>
+    <option value="astuces">Astuce</option>
+  </select>
+
+  <label>Action / Titre</label>
+  <input id="addAction" placeholder="ex: Copier ou =SOMME()">
+
+  <div id="addRaccourciFields">
+    <label>Windows</label>
+    <input id="addWin" placeholder="ex: Ctrl + C">
+
+    <label>Mac</label>
+    <input id="addMac" placeholder="ex: Cmd + C">
+  </div>
+
+  <div id="addDescField" style="display:none;">
+    <label>Description</label>
+    <input id="addDesc" placeholder="ex: Additionne les cellules">
+  </div>
+
+  <button onclick="addItem()">Ajouter</button>
+  <button class="secondary" onclick="addPopup.style.display='none'">Fermer</button>
+</div>
+
+<!-- Fenêtre Modifier -->
+<div id="editPopup" class="popup">
+  <h3 class="popup-title">Modifier l'élément</h3>
+  
+  <label>Action / Titre</label>
+  <input id="editAction">
+
+  <div id="editRaccourciFields">
+    <label>Windows</label>
+    <input id="editWin">
+
+    <label>Mac</label>
+    <input id="editMac">
+  </div>
+
+  <div id="editDescField">
+    <label>Description</label>
+    <input id="editDesc">
+  </div>
+
+  <button onclick="saveEdit()">Sauvegarder</button>
+  <button class="secondary" onclick="editPopup.style.display='none'">Fermer</button>
+</div>
+
+<!-- Fenêtre Paramètres -->
+<div id="settings" class="popup">
+  <h3 class="popup-title">Paramètres</h3>
+
+  <div class="settings-grid">
+    <div>
+      <label>Fond App</label>
+      <input type="color" id="bgColor" value="#f2f5fa" onchange="updateSettings()">
+    </div>
+    <div>
+      <label>Texte App</label>
+      <input type="color" id="textColor" value="#222222" onchange="updateSettings()">
+    </div>
+    <div>
+      <label>Fond Cartes</label>
+      <input type="color" id="cardBgColor" value="#ffffff" onchange="updateSettings()">
+    </div>
+    <div>
+      <label>Titre Cartes</label>
+      <input type="color" id="cardTitleColor" value="#222222" onchange="updateSettings()">
+    </div>
+    <div>
+      <label>Texte Cartes</label>
+      <input type="color" id="cardTextColor" value="#444444" onchange="updateSettings()">
+    </div>
+    <div>
+      <label>Titre principal</label>
+      <input type="color" id="mainTitleColor" value="#222222" onchange="updateSettings()">
+    </div>
+  </div>
+
+  <label>Taille police titre carte (px)</label>
+  <input type="number" id="fontSize" value="17" onchange="updateSettings()">
+
+  <label>Style du titre carte</label>
+  <div style="display:flex; gap:5px; margin-top:4px;">
+    <button type="button" class="btn-small" style="margin:0;" onclick="toggleStyle('bold')">Gras</button>
+    <button type="button" class="btn-small" style="margin:0;" onclick="toggleStyle('italic')">Italique</button>
+    <button type="button" class="btn-small" style="margin:0;" onclick="toggleStyle('underline')">Souligné</button>
+  </div>
+
+  <label>Thème</label>
+  <button type="button" class="btn-small" onclick="toggleDark()">Activer / Désactiver Sombre</button>
+
+  <button class="secondary" onclick="settings.style.display='none'">Fermer</button>
+</div>
+
+<!-- Fenêtre Symboles Mac -->
+<div id="macSymbols" class="popup">
+  <h3 style="text-align:center; margin-bottom:8px; margin-top: 0; font-size:16px;">Symboles Mac</h3>
+
+  <div style="display:flex; gap:5px; justify-content:center; flex-wrap:wrap;">
+    <div class="macKey" onclick="insertMacSymbol('⌘')">⌘</div>
+    <div class="macKey" onclick="insertMacSymbol('⌥')">⌥</div>
+    <div class="macKey" onclick="insertMacSymbol('⇧')">⇧</div>
+    <div class="macKey" onclick="insertMacSymbol('⌃')">⌃</div>
+    <div class="macKey" onclick="insertMacSymbol('Fn')">Fn</div>
+    <div class="macKey" onclick="insertMacSymbol('Tab')">Tab</div>
+    <div class="macKey" onclick="insertMacSymbol('Enter')">Enter</div>
+    <div class="macKey" onclick="insertMacSymbol('Esc')">Esc</div>
+  </div>
+
+  <button class="secondary" onclick="macSymbols.style.display='none'">Fermer</button>
+</div>
+
+<!-- Barre de navigation fixe -->
+<div class="menu">
+  <div class="menu-item active" onclick="setActiveNav(this); showAll()"><img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home"></div>
+  <div class="menu-item" onclick="setActiveNav(this); filterCat('raccourcis')"><img src="https://img.icons8.com/ios-filled/50/keyboard.png" alt="Raccourcis"></div>
+  <div class="menu-item" onclick="setActiveNav(this); filterCat('formules')"><span class="fx-icon">fx</span></div>
+  <div class="menu-item" onclick="setActiveNav(this); filterCat('astuces')"><img src="https://img.icons8.com/ios-filled/50/light-on.png" alt="Astuces"></div>
+  <div class="menu-item" onclick="setActiveNav(this); showFavs()"><img src="https://img.icons8.com/ios-filled/50/star.png" alt="Favoris"></div>
+  <div class="menu-item" onclick="settings.style.display='block'"><img src="https://img.icons8.com/ios-filled/50/settings.png" alt="Paramètres"></div>
+  <div class="menu-item" onclick="openAddPopup()"><img src="https://img.icons8.com/ios-filled/50/plus-math.png" alt="Ajouter"></div>
+</div>
+
+<script>
+let currentCategoryFilter = 'all';
+let styleState = {bold: false, italic: false, underline: false};
+let editingItem = null;
+
+/* Données par défaut */
+let defaultItems = [
+  {type:"raccourcis", action:"Aller à la cellule suivante (droite)", win:"Ctrl + Tab", mac:"⌘ + Tab", desc:"", fav:false},
+  {type:"raccourcis", action:"Copier", win:"Ctrl + C", mac:"⌘ + C", desc:"", fav:false},
+  {type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionner une plage de cellules", fav:false},
+  {type:"astuces", action:"Tableaux dynamiques", win:"", mac:"", desc:"Ctrl + T pour créer un tableau", fav:false}
+];
+
+/* Chargement des données */
+let items = JSON.parse(localStorage.getItem("excel_items") || "null");
+if(!items) { items = defaultItems; saveItems(); }
+
+/* Chargement des préférences de style */
+let savedStyles = JSON.parse(localStorage.getItem("excel_settings") || "{}");
+
+function initSettingsFields() {
+  if (savedStyles.bgColor) bgColor.value = savedStyles.bgColor;
+  if (savedStyles.textColor) textColor.value = savedStyles.textColor;
+  if (savedStyles.cardBgColor) cardBgColor.value = savedStyles.cardBgColor;
+  if (savedStyles.cardTitleColor) cardTitleColor.value = savedStyles.cardTitleColor;
+  if (savedStyles.cardTextColor) cardTextColor.value = savedStyles.cardTextColor;
+  if (savedStyles.mainTitleColor) mainTitleColor.value = savedStyles.mainTitleColor;
+  if (savedStyles.fontSize) fontSize.value = savedStyles.fontSize;
+}
+
+function saveItems(){
+  localStorage.setItem("excel_items", JSON.stringify(items));
+}
+
+function updateSettings() {
+  savedStyles = {
+    bgColor: bgColor.value,
+    textColor: textColor.value,
+    cardBgColor: cardBgColor.value,
+    cardTitleColor: cardTitleColor.value,
+    cardTextColor: cardTextColor.value,
+    mainTitleColor: mainTitleColor.value,
+    fontSize: fontSize.value
+  };
+  localStorage.setItem("excel_settings", JSON.stringify(savedStyles));
+  applyGlobalStyles();
+}
+
+/* Gestion active de la barre de navigation */
+function setActiveNav(el) {
+  document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+/* Styles dynamiques */
+function applyGlobalStyles(){
+  let isDark = document.body.classList.contains("dark");
+
+  if (!isDark) {
+    document.body.style.backgroundColor = bgColor.value || "#f2f5fa";
+    document.body.style.color = textColor.value || "#222";
+  } else {
+    document.body.style.backgroundColor = "";
+    document.body.style.color = "";
+  }
+  
+  title.style.color = isDark ? "" : (mainTitleColor.value || "#222");
+
+  document.querySelectorAll(".card").forEach(card => {
+    if (!isDark) {
+      card.style.backgroundColor = cardBgColor.value || "#ffffff";
+      card.style.color = cardTextColor.value || "#444444";
+    } else {
+      card.style.backgroundColor = "";
+      card.style.color = "";
+    }
+  });
+
+  document.querySelectorAll(".actionText").forEach(el => {
+    el.style.fontSize = (fontSize.value || 17) + "px";
+    el.style.fontWeight = styleState.bold ? "700" : "600";
+    el.style.fontStyle = styleState.italic ? "italic" : "normal";
+    el.style.textDecoration = styleState.underline ? "underline" : "none";
+    if (!isDark) {
+      el.style.color = cardTitleColor.value || "#222222";
+    } else {
+      el.style.color = "";
+    }
+  });
+}
+
+function toggleStyle(type){
+  styleState[type] = !styleState[type];
+  applyGlobalStyles();
+}
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  applyGlobalStyles();
+}
+
+/* Conversion visuelle des touches */
+function convertKeys(text){
+  if(!text) return "";
+  return text
+    .replace(/\^/g, 'Ctrl + ')
+    .replace(/Cmd|⌘/gi, '<span class="key"><span class="mac">⌘</span></span>')
+    .replace(/Option|⌥/gi, '<span class="key"><span class="mac">⌥</span></span>')
+    .replace(/Shift|⇧/gi, '<span class="key"><span class="mac">⇧</span></span>')
+    .replace(/Ctrl|⌃/gi, '<span class="key">Ctrl</span>')
+    .replace(/Win/gi, '<span class="key"><span class="win">🪟</span></span>')
+    .replace(/Tab/gi, '<span class="key">Tab</span>')
+    .replace(/Enter/gi, '<span class="key">Enter</span>')
+    .replace(/Esc/gi, '<span class="key">Esc</span>')
+    .replace(/\+/g, ' + ');
+}
+
+/* Rendu principal */
+function render(){
+  list.innerHTML = "";
+  let cats = ["raccourcis", "formules", "astuces"];
+
+  cats.forEach(cat => {
+    let catItems = items.filter(i => i.type === cat);
+
+    if (currentCategoryFilter !== 'all' && currentCategoryFilter !== 'favs' && currentCategoryFilter !== cat) {
+      return;
+    }
+
+    if (catItems.length > 0 || currentCategoryFilter === cat) {
+      let titleCat = document.createElement("div");
+      titleCat.className = "category";
+      titleCat.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+      list.appendChild(titleCat);
+    }
+
+    catItems.forEach(i => {
+      if (currentCategoryFilter === 'favs' && !i.fav) return;
+
+      let card = document.createElement("div");
+      card.className = "card";
+
+      let innerContent = `<div class="actionText">${i.action}</div>`;
+
+      if(i.type === "raccourcis"){
+        innerContent += `
+          <div class="row">
+            <div class="col">
+              <div class="colTitle">Windows</div>
+              <div>${convertKeys(i.win)}</div>
+            </div>
+            <div class="col">
+              <div class="colTitle">Mac</div>
+              <div>${convertKeys(i.mac)}</div>
+            </div>
+          </div>`;
+      }
+
+      if(i.desc) {
+        innerContent += `<div class="desc">${i.desc}</div>`;
+      }
+
+      innerContent += `
+        <div class="fav ${i.fav ? 'active' : ''}">★</div>
+        <div class="card-actions">
+          <button class="action-icon-btn edit-trigger">✏️ Modifier</button>
+          <button class="action-icon-btn delete-trigger" style="color:#ff3b30;">🗑️ Supprimer</button>
+        </div>
+        <div class="editBtn">✏️</div>
+        <div class="deleteBtn">🗑️</div>
+      `;
+
+      card.innerHTML = innerContent;
+
+      /* Événements Favoris */
+      card.querySelector(".fav").onclick = (e) => {
+        e.stopPropagation();
+        i.fav = !i.fav;
+        saveItems(); 
+        render();
+      };
+
+      /* Événements Supprimer */
+      const deleteAction = (e) => {
+        e.stopPropagation();
+        if(confirm("Voulez-vous vraiment supprimer cet élément ?")) {
+          items = items.filter(x => x !== i);
+          saveItems(); 
+          render();
+        }
+      };
+      card.querySelector(".deleteBtn").onclick = deleteAction;
+      card.querySelector(".delete-trigger").onclick = deleteAction;
+
+      /* Événements Modifier */
+      const editAction = (e) => {
+        e.stopPropagation();
+        openEditPopup(i);
+      };
+      card.querySelector(".editBtn").onclick = editAction;
+      card.querySelector(".edit-trigger").onclick = editAction;
+
+      /* Gestion du Swipe mobile */
+      let startX = 0;
+      card.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive: true});
+      card.addEventListener("touchend", e => {
+        let endX = e.changedTouches[0].clientX;
+        let diff = startX - endX;
+        
+        if(diff > 50){
+          card.querySelector(".deleteBtn").style.right = "0px";
+          card.querySelector(".editBtn").style.left = "-80px";
+        } 
+        else if(diff < -50) {
+          card.querySelector(".editBtn").style.left = "0px";
+          card.querySelector(".deleteBtn").style.right = "-80px";
+        }
+        else if (Math.abs(diff) < 10) {
+          card.querySelector(".deleteBtn").style.right = "-80px";
+          card.querySelector(".editBtn").style.left = "-80px";
+        }
+      }, {passive: true});
+
+      list.appendChild(card);
+    });
+  });
+
+  applyGlobalStyles();
+}
+
+/* Gestion du formulaire Ajouter */
+function toggleAddFields() {
+  let type = addType.value;
+  if(type === "raccourcis") {
+    addRaccourciFields.style.display = "block";
+    addDescField.style.display = "none";
+  } else {
+    addRaccourciFields.style.display = "none";
+    addDescField.style.display = "block";
+  }
+}
+
+function openAddPopup(){
+  addType.value = "raccourcis";
+  toggleAddFields();
+  addAction.value = "";
+  addWin.value = "";
+  addMac.value = "";
+  addDesc.value = "";
+  addPopup.style.display = "block";
+}
+
+function addItem(){
+  let type = addType.value;
+  let action = addAction.value.trim();
+  let win = addWin.value.trim();
+  let mac = addMac.value.trim();
+  let desc = addDesc.value.trim();
+
+  if(!action){
+    alert("Veuillez saisir une action ou un titre.");
+    return;
+  }
+
+  if(type === "raccourcis" && (!win || !mac)){
+    alert("Renseignez les touches Windows et Mac pour le raccourci.");
+    return;
+  }
+
+  items.push({type, action, win, mac, desc, fav: false});
+  saveItems();
+  
+  filterCat(type);
+  
+  const navIndex = type === 'raccourcis' ? 1 : (type === 'formules' ? 2 : 3);
+  setActiveNav(document.querySelectorAll('.menu-item')[navIndex]);
+
+  addPopup.style.display = "none";
+}
+
+/* Formulaire de modification */
+function openEditPopup(item) {
+  editingItem = item;
+  editAction.value = item.action || "";
+  editWin.value = item.win || "";
+  editMac.value = item.mac || "";
+  editDesc.value = item.desc || "";
+
+  if(item.type === "raccourcis") {
+    editRaccourciFields.style.display = "block";
+  } else {
+    editRaccourciFields.style.display = "none";
+  }
+
+  editPopup.style.display = "block";
+}
+
+function saveEdit(){
+  if(!editingItem) return;
+  editingItem.action = editAction.value.trim();
+  editingItem.win = editWin.value.trim();
+  editingItem.mac = editMac.value.trim();
+  editingItem.desc = editDesc.value.trim();
+  
+  saveItems(); 
+  render();
+  editPopup.style.display = "none";
+}
+
+/* Insertion de symboles Mac */
+addMac.onclick = () => { window.currentMacField = addMac; macSymbols.style.display = "block"; };
+editMac.onclick = () => { window.currentMacField = editMac; macSymbols.style.display = "block"; };
+
+function insertMacSymbol(sym){
+  if(window.currentMacField) {
+    window.currentMacField.value += (window.currentMacField.value ? " " : "") + sym;
+  }
+}
+
+/* Recherche dynamique */
+search.oninput = () => {
+  let q = search.value.toLowerCase().trim();
+  document.querySelectorAll(".card").forEach(c => {
+    c.style.display = c.textContent.toLowerCase().includes(q) ? "" : "none";
+  });
+};
+
+/* Filtrage par catégories */
+function filterCat(cat){
+  currentCategoryFilter = cat;
+  search.value = "";
+  render();
+}
+
+function showFavs(){
+  currentCategoryFilter = 'favs';
+  search.value = "";
+  render();
+}
+
+function showAll(){
+  currentCategoryFilter = 'all';
+  search.value = "";
+  render();
+}
+
+/* Initialisation au chargement */
+initSettingsFields();
+render();
+</script>
+
+</body>
+</html>
