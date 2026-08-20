@@ -526,6 +526,13 @@ h1 {
   <label>Thème</label>
   <button type="button" class="btn-small" onclick="toggleDark()">Activer / Désactiver Sombre</button>
 
+  <label>Sauvegarde des données</label>
+  <div style="display:flex; gap:5px; margin-top:4px;">
+    <button type="button" class="btn-small" style="margin:0; background:#34c759;" onclick="exportData()">Exporter</button>
+    <button type="button" class="btn-small" style="margin:0; background:#ff9500;" onclick="importData()">Importer</button>
+  </div>
+  <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="handleFileImport(event)">
+
   <button class="secondary" onclick="settings.style.display='none'">Fermer</button>
 </div>
 
@@ -620,6 +627,48 @@ function updateSettings() {
   };
   localStorage.setItem("excel_settings", JSON.stringify(savedStyles));
   applyGlobalStyles();
+}
+
+/* Fonctions d'exportation et d'importation */
+function exportData() {
+  let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(items, null, 2));
+  let downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute("href", dataStr);
+  downloadAnchor.setAttribute("download", "excel_pro_sauvegarde.json");
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+}
+
+function importData() {
+  importFileInput.click();
+}
+
+function handleFileImport(event) {
+  let file = event.target.files[0];
+  if (!file) return;
+
+  let reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      let importedItems = JSON.parse(e.target.result);
+      if (Array.isArray(importedItems)) {
+        if (confirm("Voulez-vous remplacer vos données actuelles par celles du fichier importé ?")) {
+          items = importedItems;
+          saveItems();
+          render();
+          alert("Importation réussie !");
+          settings.style.display = 'none';
+        }
+      } else {
+        alert("Le fichier sélectionné est invalide.");
+      }
+    } catch (err) {
+      alert("Erreur lors de la lecture du fichier JSON.");
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = ""; // Réinitialiser le fichier sélectionné
 }
 
 /* Gestion active de la barre de navigation */
