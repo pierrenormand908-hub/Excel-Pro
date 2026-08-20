@@ -327,7 +327,7 @@ h1 {
   font-weight: 600;
 }
 
-.popup input, .popup select {
+.popup input, .popup select, .popup textarea {
   width: 100%;
   margin-top: 3px;
   padding: 7px 9px;
@@ -337,7 +337,7 @@ h1 {
   background: #fff;
   color: #222;
 }
-.dark .popup input, .dark .popup select {
+.dark .popup input, .dark .popup select, .dark .popup textarea {
   background: #3a3a3c;
   border-color: #555;
   color: #fff;
@@ -528,10 +528,22 @@ h1 {
 
   <label>Sauvegarde des données</label>
   <div style="display:flex; gap:5px; margin-top:4px;">
-    <button type="button" class="btn-small" style="margin:0; background:#34c759;" onclick="exportData()">Exporter</button>
-    <button type="button" class="btn-small" style="margin:0; background:#ff9500;" onclick="importData()">Importer</button>
+    <button type="button" class="btn-small" style="margin:0; background:#34c759;" onclick="exportData()">Télécharger</button>
+    <button type="button" class="btn-small" style="margin:0; background:#007aff;" onclick="copyBackupText()">Copier Texte</button>
   </div>
+  
+  <div style="display:flex; gap:5px; margin-top:4px;">
+    <button type="button" class="btn-small" style="margin:0; background:#ff9500;" onclick="importData()">Fichier JSON</button>
+    <button type="button" class="btn-small" style="margin:0; background:#5856d6;" onclick="showPasteArea()">Coller Texte</button>
+  </div>
+  
   <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="handleFileImport(event)">
+
+  <div id="pasteAreaBlock" style="display:none; margin-top:10px;">
+    <label>Coller votre sauvegarde ici :</label>
+    <textarea id="pasteInput" rows="4" placeholder="Collez le texte JSON ici..."></textarea>
+    <button type="button" class="btn-small" style="background:#34c759; margin-top:4px;" onclick="importFromPastedText()">Valider l'importation</button>
+  </div>
 
   <button class="secondary" onclick="settings.style.display='none'">Fermer</button>
 </div>
@@ -572,7 +584,7 @@ h1 {
     <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
   </div>
   <div class="menu-item" onclick="settings.style.display='block'">
-    <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5-3.5z"/></svg>
   </div>
   <div class="menu-item" onclick="openAddPopup()">
     <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
@@ -642,6 +654,45 @@ function exportData() {
   }
 }
 
+function copyBackupText() {
+  let str = JSON.stringify(items, null, 2);
+  navigator.clipboard.writeText(str).then(() => {
+    alert("Données copiées dans le presse-papier ! Vous pouvez les coller dans Notes pour les conserver.");
+  }).catch(() => {
+    alert("Erreur lors de la copie.");
+  });
+}
+
+function showPasteArea() {
+  pasteAreaBlock.style.display = pasteAreaBlock.style.display === "none" ? "block" : "none";
+}
+
+function importFromPastedText() {
+  let text = pasteInput.value.trim();
+  if (!text) {
+    alert("Veuillez coller le texte de sauvegarde.");
+    return;
+  }
+  try {
+    let importedItems = JSON.parse(text);
+    if (Array.isArray(importedItems)) {
+      if (confirm("Voulez-vous remplacer vos données actuelles par le texte collé ?")) {
+        items = importedItems;
+        saveItems();
+        render();
+        alert("Restauration réussie !");
+        pasteInput.value = "";
+        pasteAreaBlock.style.display = "none";
+        settings.style.display = 'none';
+      }
+    } else {
+      alert("Le texte collé n'est pas un format valide.");
+    }
+  } catch(err) {
+    alert("Erreur de format dans le texte collé.");
+  }
+}
+
 function importData() {
   importFileInput.click();
 }
@@ -670,7 +721,7 @@ function handleFileImport(event) {
     }
   };
   reader.readAsText(file);
-  event.target.value = ""; // Réinitialiser le fichier sélectionné
+  event.target.value = "";
 }
 
 /* Gestion active de la barre de navigation */
