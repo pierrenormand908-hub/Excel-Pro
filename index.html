@@ -6,7 +6,7 @@
 <title>Excel Pro</title>
 <link rel="apple-touch-icon" href="Excel-Pro.png">
 <link rel="icon" type="image/png" href="Excel-Pro.png">
-
+    
 <style>
 * {
   box-sizing: border-box;
@@ -135,7 +135,7 @@ h1 {
   top: 10px;
   font-size: 20px;
   cursor: pointer;
-  color: #c5c1c1;
+  color: #ccc;
   user-select: none;
 }
 .fav.active {
@@ -168,7 +168,7 @@ h1 {
   color: #666;
 }
 .dark .action-icon-btn {
-  color: #bdbdbd;
+  color: #aaa;
 }
 
 /* Boutons cachés (glissement swipe) */
@@ -204,7 +204,7 @@ h1 {
   transition: left .25s ease;
 }
 
-/* Barre de navigation fixe (Optimisée iOS) */
+/* Barre de navigation fixe (Optimisée iOS & Mode Sombre) */
 .menu {
   position: fixed;
   bottom: 0;
@@ -220,10 +220,12 @@ h1 {
   align-items: center;
   z-index: 999;
   padding-bottom: env(safe-area-inset-bottom);
+  color: #222;
 }
 .dark .menu {
   background: rgba(44, 44, 46, 0.95);
   border-top: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
 }
 
 .menu-item {
@@ -234,12 +236,15 @@ h1 {
   cursor: pointer;
   width: 14%;
   height: 100%;
+  color: inherit;
 }
-.menu img {
+
+.menu-item svg {
   width: 22px;
   height: 22px;
+  fill: currentColor;
   opacity: .75;
-  transition: opacity .2s, transform .2s;
+  transition: opacity .2s, transform .2s, fill .2s;
 }
 
 /* Style de l'icône fx */
@@ -249,18 +254,21 @@ h1 {
   font-style: italic;
   font-family: Georgia, "Times New Roman", serif;
   opacity: .75;
-  transition: opacity .2s, transform .2s;
+  transition: opacity .2s, transform .2s, color .2s;
   user-select: none;
   line-height: 1;
 }
 
-.menu-item.active img, .menu-item.active .fx-icon {
+.menu-item.active svg, .menu-item.active .fx-icon {
   opacity: 1;
   transform: scale(1.1);
   color: #007aff;
 }
+.dark .menu-item.active svg, .dark .menu-item.active .fx-icon {
+  color: #0a84ff;
+}
 
-/* Fenêtres Popup (Optimisées en taille) */
+/* Fenêtres Popup */
 .popup {
   position: fixed;
   top: 50%;
@@ -301,7 +309,7 @@ h1 {
   margin-top: 3px;
   padding: 7px 9px;
   border-radius: 6px;
-  border: 1px solid #d0bfbf;
+  border: 1px solid #ccc;
   font-size: 14px;
   background: #fff;
   color: #222;
@@ -341,7 +349,7 @@ h1 {
   width: 32px;
   height: 32px;
   background: #fff;
-  border: 1px solid #d5d0d0;
+  border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 15px;
   display: flex;
@@ -361,7 +369,8 @@ h1 {
   font-weight: bold;
   margin: 12px 0 6px;
   font-size: 16px;
-  color: #085c34;
+  color: #007aff;
+  transition: color .3s;
 }
 .dark .category {
   color: #0a84ff;
@@ -468,6 +477,10 @@ h1 {
       <label>Titre principal</label>
       <input type="color" id="mainTitleColor" value="#222222" onchange="updateSettings()">
     </div>
+    <div>
+      <label>Catégories</label>
+      <input type="color" id="categoryColor" value="#007aff" onchange="updateSettings()">
+    </div>
   </div>
 
   <label>Taille police titre carte (px)</label>
@@ -504,15 +517,36 @@ h1 {
   <button class="secondary" onclick="macSymbols.style.display='none'">Fermer</button>
 </div>
 
-<!-- Barre de navigation fixe -->
+<!-- Barre de navigation fixe (Icônes SVG haute définition réactives) -->
 <div class="menu">
-  <div class="menu-item active" onclick="setActiveNav(this); showAll()"><img src="https://img.icons8.com/ios-filled/50/home.png" alt="Home"></div>
-  <div class="menu-item" onclick="setActiveNav(this); filterCat('raccourcis')"><img src="https://img.icons8.com/ios-filled/50/keyboard.png" alt="Raccourcis"></div>
-  <div class="menu-item" onclick="setActiveNav(this); filterCat('formules')"><span class="fx-icon">fx</span></div>
-  <div class="menu-item" onclick="setActiveNav(this); filterCat('astuces')"><img src="https://img.icons8.com/ios-filled/50/light-on.png" alt="Astuces"></div>
-  <div class="menu-item" onclick="setActiveNav(this); showFavs()"><img src="https://img.icons8.com/ios-filled/50/star.png" alt="Favoris"></div>
-  <div class="menu-item" onclick="settings.style.display='block'"><img src="https://img.icons8.com/ios-filled/50/settings.png" alt="Paramètres"></div>
-  <div class="menu-item" onclick="openAddPopup()"><img src="https://img.icons8.com/ios-filled/50/plus-math.png" alt="Ajouter"></div>
+  <!-- Accueil -->
+  <div class="menu-item active" onclick="setActiveNav(this); showAll()">
+    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  </div>
+  <!-- Raccourcis Clavier -->
+  <div class="menu-item" onclick="setActiveNav(this); filterCat('raccourcis')">
+    <svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zM7 13H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm1-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
+  </div>
+  <!-- Formules -->
+  <div class="menu-item" onclick="setActiveNav(this); filterCat('formules')">
+    <span class="fx-icon">fx</span>
+  </div>
+  <!-- Astuces -->
+  <div class="menu-item" onclick="setActiveNav(this); filterCat('astuces')">
+    <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+  </div>
+  <!-- Favoris -->
+  <div class="menu-item" onclick="setActiveNav(this); showFavs()">
+    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+  </div>
+  <!-- Paramètres -->
+  <div class="menu-item" onclick="settings.style.display='block'">
+    <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
+  </div>
+  <!-- Ajouter -->
+  <div class="menu-item" onclick="openAddPopup()">
+    <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+  </div>
 </div>
 
 <script>
@@ -542,6 +576,7 @@ function initSettingsFields() {
   if (savedStyles.cardTitleColor) cardTitleColor.value = savedStyles.cardTitleColor;
   if (savedStyles.cardTextColor) cardTextColor.value = savedStyles.cardTextColor;
   if (savedStyles.mainTitleColor) mainTitleColor.value = savedStyles.mainTitleColor;
+  if (savedStyles.categoryColor) categoryColor.value = savedStyles.categoryColor;
   if (savedStyles.fontSize) fontSize.value = savedStyles.fontSize;
 }
 
@@ -557,6 +592,7 @@ function updateSettings() {
     cardTitleColor: cardTitleColor.value,
     cardTextColor: cardTextColor.value,
     mainTitleColor: mainTitleColor.value,
+    categoryColor: categoryColor.value,
     fontSize: fontSize.value
   };
   localStorage.setItem("excel_settings", JSON.stringify(savedStyles));
@@ -582,6 +618,14 @@ function applyGlobalStyles(){
   }
   
   title.style.color = isDark ? "" : (mainTitleColor.value || "#222");
+
+  document.querySelectorAll(".category").forEach(cat => {
+    if (!isDark) {
+      cat.style.color = categoryColor.value || "#007aff";
+    } else {
+      cat.style.color = "";
+    }
+  });
 
   document.querySelectorAll(".card").forEach(card => {
     if (!isDark) {
