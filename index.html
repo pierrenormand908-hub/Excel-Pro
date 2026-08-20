@@ -6,14 +6,15 @@
 <title>Excel Pro</title>
 <link rel="apple-touch-icon" href="Excel-Pro.png">
 <link rel="icon" type="image/png" href="Excel-Pro.png">
-    
 <style>
 * {
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
   margin: 0;
+  overflow: hidden; /* Empêche tout le corps de défiler */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: #f2f5fa;
   color: #222;
@@ -29,13 +30,27 @@ body {
 .app {
   max-width: 480px;
   margin: 0 auto;
-  padding: 15px 15px 110px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* En-tête fixe en haut */
+.header-fixed {
+  flex-shrink: 0;
+  padding: 10px 15px 5px 15px;
+  background: inherit;
+  z-index: 10;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.dark .header-fixed {
+  border-bottom-color: rgba(255,255,255,0.05);
 }
 
 h1 {
   text-align: center;
-  font-size: 24px;
-  margin: 5px 0 15px;
+  font-size: 22px;
+  margin: 5px 0 10px;
 }
 
 /* Recherche */
@@ -45,7 +60,7 @@ h1 {
   border-radius: 10px;
   border: 1px solid #c9d3e0;
   font-size: 15px;
-  margin: 0 0 15px;
+  margin-bottom: 5px;
   display: block;
   outline: none;
   background: #fff;
@@ -55,6 +70,14 @@ h1 {
   background: #2c2c2e;
   border-color: #444;
   color: #fff;
+}
+
+/* Zone scrollable uniquement pour les catégories & cartes */
+.content-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 15px 80px 15px; /* Dégagement pour le menu en bas */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Cartes */
@@ -204,7 +227,7 @@ h1 {
   transition: left .25s ease;
 }
 
-/* Barre de navigation fixe (Optimisée iOS & Mode Sombre) */
+/* Barre de navigation fixe en bas */
 .menu {
   position: fixed;
   bottom: 0;
@@ -388,9 +411,16 @@ h1 {
 <body>
 
 <div class="app">
-  <h1 id="title">Excel Pro</h1>
-  <input id="search" placeholder="Chercher…">
-  <div id="list"></div>
+  <!-- Section En-tête Fixe -->
+  <div class="header-fixed">
+    <h1 id="title">Excel Pro</h1>
+    <input id="search" placeholder="Chercher…">
+  </div>
+
+  <!-- Section Cartes Scrollable -->
+  <div class="content-scrollable">
+    <div id="list"></div>
+  </div>
 </div>
 
 <!-- Fenêtre Ajouter -->
@@ -517,33 +547,26 @@ h1 {
   <button class="secondary" onclick="macSymbols.style.display='none'">Fermer</button>
 </div>
 
-<!-- Barre de navigation fixe (Icônes SVG haute définition réactives) -->
+<!-- Barre de navigation fixe -->
 <div class="menu">
-  <!-- Accueil -->
   <div class="menu-item active" onclick="setActiveNav(this); showAll()">
     <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
   </div>
-  <!-- Raccourcis Clavier -->
   <div class="menu-item" onclick="setActiveNav(this); filterCat('raccourcis')">
     <svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zM7 13H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm1-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
   </div>
-  <!-- Formules -->
   <div class="menu-item" onclick="setActiveNav(this); filterCat('formules')">
     <span class="fx-icon">fx</span>
   </div>
-  <!-- Astuces -->
   <div class="menu-item" onclick="setActiveNav(this); filterCat('astuces')">
     <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
   </div>
-  <!-- Favoris -->
   <div class="menu-item" onclick="setActiveNav(this); showFavs()">
     <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
   </div>
-  <!-- Paramètres -->
   <div class="menu-item" onclick="settings.style.display='block'">
     <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
   </div>
-  <!-- Ajouter -->
   <div class="menu-item" onclick="openAddPopup()">
     <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
   </div>
