@@ -151,6 +151,43 @@ h1 {
   margin-right: 2px;
 }
 
+/* Section d'images explicatives */
+.images-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.img-preview-box {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: #f8f9fa;
+  text-align: center;
+}
+.dark .img-preview-box {
+  background: #222;
+  border-color: rgba(255,255,255,0.1);
+}
+
+.img-preview-box img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+.img-link-btn {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 8px;
+  color: #007aff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
 /* Favoris */
 .fav {
   position: absolute;
@@ -405,6 +442,13 @@ h1 {
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+
+.image-url-group {
+  margin-top: 6px;
+  padding: 6px;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+}
 </style>
 </head>
 
@@ -429,15 +473,15 @@ h1 {
   
   <label>Type</label>
   <select id="addType" onchange="toggleAddFields()">
-    <option value="raccourcis" selected>Raccourci</option>
-    <option value="formules">Formule</option>
+    <option value="raccourcis">Raccourci</option>
+    <option value="formules" selected>Formule</option>
     <option value="astuces">Astuce</option>
   </select>
 
   <label>Action / Titre</label>
-  <input id="addAction" placeholder="ex: Copier ou =SOMME()">
+  <input id="addAction" placeholder="ex: =SOMME() ou astuce">
 
-  <div id="addRaccourciFields">
+  <div id="addRaccourciFields" style="display:none;">
     <label>Windows</label>
     <input id="addWin" placeholder="ex: Ctrl + C">
 
@@ -445,10 +489,15 @@ h1 {
     <input id="addMac" placeholder="ex: Cmd + C">
   </div>
 
-  <div id="addDescField" style="display:none;">
+  <div id="addDescField">
     <label>Description</label>
     <input id="addDesc" placeholder="ex: Additionne les cellules">
   </div>
+
+  <!-- Conteneur d'images/URLs pour l'ajout -->
+  <label>Images Explicatives (URLs)</label>
+  <div id="addImageUrlsContainer"></div>
+  <button type="button" class="btn-small" style="background:#5856d6; margin-top:5px;" onclick="addUrlInput('addImageUrlsContainer')">+ Ajouter une URL d'image (Max 5)</button>
 
   <button onclick="addItem()">Ajouter</button>
   <button class="secondary" onclick="addPopup.style.display='none'">Fermer</button>
@@ -473,6 +522,11 @@ h1 {
     <label>Description</label>
     <input id="editDesc">
   </div>
+
+  <!-- Conteneur d'images/URLs pour la modification -->
+  <label>Images Explicatives (URLs)</label>
+  <div id="editImageUrlsContainer"></div>
+  <button type="button" class="btn-small" style="background:#5856d6; margin-top:5px;" onclick="addUrlInput('editImageUrlsContainer')">+ Ajouter une URL d'image (Max 5)</button>
 
   <button onclick="saveEdit()">Sauvegarder</button>
   <button class="secondary" onclick="editPopup.style.display='none'">Fermer</button>
@@ -598,10 +652,10 @@ let editingItem = null;
 
 /* Données par défaut */
 let defaultItems = [
-  {type:"raccourcis", action:"Aller à la cellule suivante (droite)", win:"Ctrl + Tab", mac:"⌘ + Tab", desc:"", fav:false},
-  {type:"raccourcis", action:"Copier", win:"Ctrl + C", mac:"⌘ + C", desc:"", fav:false},
-  {type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionner une plage de cellules", fav:false},
-  {type:"astuces", action:"Tableaux dynamiques", win:"", mac:"", desc:"Ctrl + T pour créer un tableau", fav:false}
+  {type:"raccourcis", action:"Aller à la cellule suivante (droite)", win:"Ctrl + Tab", mac:"⌘ + Tab", desc:"", images:[], fav:false},
+  {type:"raccourcis", action:"Copier", win:"Ctrl + C", mac:"⌘ + C", desc:"", images:[], fav:false},
+  {type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionner une plage de cellules", images:[], fav:false},
+  {type:"astuces", action:"Tableaux dynamiques", win:"", mac:"", desc:"Ctrl + T pour créer un tableau", images:[], fav:false}
 ];
 
 /* Chargement des données */
@@ -639,6 +693,51 @@ function updateSettings() {
   };
   localStorage.setItem("excel_settings", JSON.stringify(savedStyles));
   applyGlobalStyles();
+}
+
+/* Fonctions de gestion des URLs d'images dynamiques (jusqu'à 5) */
+function addUrlInput(containerId, value = "") {
+  let container = document.getElementById(containerId);
+  let currentInputs = container.querySelectorAll("input");
+  if (currentInputs.length >= 5) {
+    alert("Vous ne pouvez pas ajouter plus de 5 adresses d'images.");
+    return;
+  }
+
+  let div = document.createElement("div");
+  div.className = "image-url-group";
+  div.style.display = "flex";
+  div.style.gap = "5px";
+  div.style.alignItems = "center";
+  
+  let input = document.createElement("input");
+  input.type = "url";
+  input.placeholder = "https://exemple.com/image.png";
+  input.value = value;
+  input.style.marginTop = "0";
+
+  let removeBtn = document.createElement("button");
+  removeBtn.type = "button";
+  removeBtn.textContent = "✕";
+  removeBtn.style.width = "30px";
+  removeBtn.style.margin = "0";
+  removeBtn.style.background = "#ff3b30";
+  removeBtn.onclick = () => div.remove();
+
+  div.appendChild(input);
+  div.appendChild(removeBtn);
+  container.appendChild(div);
+}
+
+function getUrlsFromContainer(containerId) {
+  let container = document.getElementById(containerId);
+  let inputs = container.querySelectorAll("input");
+  let urls = [];
+  inputs.forEach(inp => {
+    let val = inp.value.trim();
+    if (val) urls.push(val);
+  });
+  return urls;
 }
 
 /* Fonctions d'exportation et d'importation */
@@ -846,6 +945,19 @@ function render(){
         innerContent += `<div class="desc">${i.desc}</div>`;
       }
 
+      /* Rendu des images associées */
+      if(i.images && i.images.length > 0) {
+        innerContent += `<div class="images-container">`;
+        i.images.forEach((imgUrl, idx) => {
+          innerContent += `
+            <div class="img-preview-box">
+              <img src="${imgUrl}" alt="Image ${idx+1}" onerror="this.style.display='none'">
+              <a href="${imgUrl}" target="_blank" class="img-link-btn">🔗 Ouvrir l'image ${idx+1}</a>
+            </div>`;
+        });
+        innerContent += `</div>`;
+      }
+
       innerContent += `
         <div class="fav ${i.fav ? 'active' : ''}">★</div>
         <div class="card-actions">
@@ -927,12 +1039,16 @@ function toggleAddFields() {
 }
 
 function openAddPopup(){
-  addType.value = "raccourcis";
+  addType.value = "formules";
   toggleAddFields();
   addAction.value = "";
   addWin.value = "";
   addMac.value = "";
   addDesc.value = "";
+  
+  addImageUrlsContainer.innerHTML = "";
+  addUrlInput('addImageUrlsContainer'); // Une première case par défaut
+  
   addPopup.style.display = "block";
 }
 
@@ -942,6 +1058,7 @@ function addItem(){
   let win = addWin.value.trim();
   let mac = addMac.value.trim();
   let desc = addDesc.value.trim();
+  let images = getUrlsFromContainer('addImageUrlsContainer');
 
   if(!action){
     alert("Veuillez saisir une action ou un titre.");
@@ -953,7 +1070,7 @@ function addItem(){
     return;
   }
 
-  items.push({type, action, win, mac, desc, fav: false});
+  items.push({type, action, win, mac, desc, images, fav: false});
   saveItems();
   
   filterCat(type);
@@ -972,6 +1089,13 @@ function openEditPopup(item) {
   editMac.value = item.mac || "";
   editDesc.value = item.desc || "";
 
+  editImageUrlsContainer.innerHTML = "";
+  if (item.images && item.images.length > 0) {
+    item.images.forEach(url => addUrlInput('editImageUrlsContainer', url));
+  } else {
+    addUrlInput('editImageUrlsContainer');
+  }
+
   if(item.type === "raccourcis") {
     editRaccourciFields.style.display = "block";
   } else {
@@ -987,6 +1111,7 @@ function saveEdit(){
   editingItem.win = editWin.value.trim();
   editingItem.mac = editMac.value.trim();
   editingItem.desc = editDesc.value.trim();
+  editingItem.images = getUrlsFromContainer('editImageUrlsContainer');
   
   saveItems(); 
   render();
