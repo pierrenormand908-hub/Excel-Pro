@@ -14,6 +14,13 @@
 :root {
   --header-bg: #2c3e50; /* Couleur par défaut (Accueil) */
   --header-text: #ffffff;
+  --custom-text-color: inherit;
+  --custom-title-color: inherit;
+  --custom-category-color: #007aff;
+  --custom-font-size: 14px;
+  --custom-font-weight: normal;
+  --custom-font-style: normal;
+  --custom-text-decoration: none;
 }
 
 html, body {
@@ -75,6 +82,7 @@ h1 {
   font-size: 20px;
   margin: 0;
   flex: 1;
+  color: var(--custom-title-color);
 }
 
 /* Recherche */
@@ -95,6 +103,11 @@ h1 {
   overflow-y: auto;
   padding: 15px 15px 80px 15px;
   -webkit-overflow-scrolling: touch;
+  color: var(--custom-text-color);
+  font-size: var(--custom-font-size);
+  font-weight: var(--custom-font-weight);
+  font-style: var(--custom-font-style);
+  text-decoration: var(--custom-text-decoration);
 }
 
 /* Page d'accueil : Alignement vertical en ligne */
@@ -134,7 +147,6 @@ h1 {
   background-color: #ffffff; /* 👈 Ajoute le fond blanc autour de l'icône */
   border-radius: 12px;       /* Arrondit légèrement les coins du fond blanc */
   padding: 4px;              /* Ajoute un petit espace intérieur autour de l'icône */
-
 }
 
 .home-card .card-info {
@@ -165,8 +177,8 @@ h1 {
 .card-access { border-left-color: #a4373a; }
 .card-access .app-name { color: #a4373a; }
 
-.card-publisher { border-left-color: #1fb6c9; }
-.card-publisher .app-name { color: #1fb6c9; }
+.card-publisher { border-left-color: #0f807e; }
+.card-publisher .app-name { color: #0f807e; }
 
 .dark .card-word .app-name { color: #478cff; }
 .dark .card-excel .app-name { color: #34c759; }
@@ -369,7 +381,7 @@ h1 {
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(0,0,0,0.1);
   display: flex;
-  justify-style: space-around;
+  justify-content: space-around;
   align-items: center;
   z-index: 999;
   padding-bottom: env(safe-area-inset-bottom);
@@ -518,11 +530,8 @@ h1 {
   font-weight: bold;
   margin: 12px 0 6px;
   font-size: 16px;
-  color: #007aff;
+  color: var(--custom-category-color);
   transition: color .3s;
-}
-.dark .category {
-  color: #0a84ff;
 }
 
 .image-url-group {
@@ -530,6 +539,40 @@ h1 {
   padding: 6px;
   border: 1px dashed #ccc;
   border-radius: 6px;
+}
+
+/* Styles pour les options de personnalisation dans les paramètres */
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+.setting-row label {
+  margin-top: 0;
+}
+.setting-row input[type="color"] {
+  width: 40px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+.style-checkboxes {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+.style-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: normal;
+  margin-top: 0;
+}
+.style-checkboxes input {
+  width: auto;
+  margin: 0;
 }
 </style>
 </head>
@@ -669,6 +712,48 @@ h1 {
   <label>Thème Sombre</label>
   <button type="button" class="btn-small" onclick="toggleDark()">Activer / Désactiver Sombre</button>
 
+  <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ccc;">
+  <h4 style="margin: 5px 0; font-size: 15px;">Ajustements Visuels</h4>
+
+  <div class="setting-row">
+    <label for="cfgHeaderBg">Couleur de l'en-tête (Accueil)</label>
+    <input type="color" id="cfgHeaderBg" onchange="applyVisualSettings()">
+  </div>
+
+  <div class="setting-row">
+    <label for="cfgTitleColor">Couleur du titre</label>
+    <input type="color" id="cfgTitleColor" onchange="applyVisualSettings()">
+  </div>
+
+  <div class="setting-row">
+    <label for="cfgTextColor">Couleur du texte</label>
+    <input type="color" id="cfgTextColor" onchange="applyVisualSettings()">
+  </div>
+
+  <div class="setting-row">
+    <label for="cfgCategoryColor">Couleur des catégories</label>
+    <input type="color" id="cfgCategoryColor" onchange="applyVisualSettings()">
+  </div>
+
+  <div class="setting-row">
+    <label for="cfgFontSize">Taille de la police</label>
+    <select id="cfgFontSize" style="width: auto;" onchange="applyVisualSettings()">
+      <option value="12px">Petite (12px)</option>
+      <option value="14px">Normale (14px)</option>
+      <option value="16px">Grande (16px)</option>
+      <option value="18px">Très grande (18px)</option>
+    </select>
+  </div>
+
+  <label>Style du texte</label>
+  <div class="style-checkboxes">
+    <label><input type="checkbox" id="cfgBold" onchange="applyVisualSettings()"> Gras</label>
+    <label><input type="checkbox" id="cfgItalic" onchange="applyVisualSettings()"> Italique</label>
+    <label><input type="checkbox" id="cfgUnderline" onchange="applyVisualSettings()"> Souligné</label>
+  </div>
+
+  <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ccc;">
+
   <label>Sauvegarde globale des données</label>
   <div style="display:flex; gap:5px; margin-top:4px;">
     <button type="button" class="btn-small" style="margin:0; background:#34c759;" onclick="exportData()">Télécharger</button>
@@ -766,12 +851,57 @@ function saveItems(){
   localStorage.setItem("office_pro_items", JSON.stringify(items));
 }
 
+/* Gestion des réglages visuels dans les paramètres */
+let userVisualSettings = JSON.parse(localStorage.getItem("office_pro_visuals") || "{}");
+
+function initVisualSettings() {
+  document.getElementById("cfgHeaderBg").value = userVisualSettings.headerBg || "#2c3e50";
+  document.getElementById("cfgTitleColor").value = userVisualSettings.titleColor || "#ffffff";
+  document.getElementById("cfgTextColor").value = userVisualSettings.textColor || "#222222";
+  document.getElementById("cfgCategoryColor").value = userVisualSettings.categoryColor || "#007aff";
+  document.getElementById("cfgFontSize").value = userVisualSettings.fontSize || "14px";
+  document.getElementById("cfgBold").checked = userVisualSettings.bold || false;
+  document.getElementById("cfgItalic").checked = userVisualSettings.italic || false;
+  document.getElementById("cfgUnderline").checked = userVisualSettings.underline || false;
+  
+  applyVisualSettings(false);
+}
+
+function applyVisualSettings(save = true) {
+  const headerBg = document.getElementById("cfgHeaderBg").value;
+  const titleColor = document.getElementById("cfgTitleColor").value;
+  const textColor = document.getElementById("cfgTextColor").value;
+  const categoryColor = document.getElementById("cfgCategoryColor").value;
+  const fontSize = document.getElementById("cfgFontSize").value;
+  const bold = document.getElementById("cfgBold").checked;
+  const italic = document.getElementById("cfgItalic").checked;
+  const underline = document.getElementById("cfgUnderline").checked;
+
+  if (save) {
+    userVisualSettings = { headerBg, titleColor, textColor, categoryColor, fontSize, bold, italic, underline };
+    localStorage.setItem("office_pro_visuals", JSON.stringify(userVisualSettings));
+  }
+
+  const root = document.documentElement;
+  if (!currentApp) {
+    root.style.setProperty('--header-bg', headerBg);
+  }
+  root.style.setProperty('--custom-title-color', titleColor);
+  root.style.setProperty('--custom-text-color', textColor);
+  root.style.setProperty('--custom-category-color', categoryColor);
+  root.style.setProperty('--custom-font-size', fontSize);
+  root.style.setProperty('--custom-font-weight', bold ? 'bold' : 'normal');
+  root.style.setProperty('--custom-font-style', italic ? 'italic' : 'normal');
+  root.style.setProperty('--custom-text-decoration', underline ? 'underline' : 'none');
+}
+
 /* Navigation principale */
 function goHome() {
   currentApp = null;
   currentCategoryFilter = 'all';
   title.textContent = "Raccourcis, Truc & Astuce";
-  document.documentElement.style.setProperty('--header-bg', '#2c3e50');
+  const defaultHeader = userVisualSettings.headerBg || '#2c3e50';
+  document.documentElement.style.setProperty('--header-bg', defaultHeader);
   search.style.display = "none";
   backHomeBtn.style.display = "none";
   homePage.style.display = "block";
@@ -1116,7 +1246,8 @@ function showFavs(){
   render();
 }
 
-// Démarrer sur la page d'accueil
+// Initialiser les réglages visuels et démarrer sur l'accueil
+initVisualSettings();
 goHome();
 </script>
 
