@@ -3,18 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Excel Pro</title>
-<link rel="apple-touch-icon" href="Excel_1.png">
-<link rel="icon" type="image/png" href="Excel_1.png">
+<title>Office-Pro</title>
+<link rel="apple-touch-icon" href="Office_Pro.png">
+<link rel="icon" type="image/png" href="Office_Pro.png">
 <style>
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --header-bg: #2c3e50; /* Couleur par défaut (Accueil) */
+  --header-text: #ffffff;
+}
+
 html, body {
   height: 100%;
   margin: 0;
-  overflow: hidden; /* Empêche tout le corps de défiler */
+  overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: #f2f5fa;
   color: #222;
@@ -38,49 +43,133 @@ html, body {
 /* En-tête fixe en haut */
 .header-fixed {
   flex-shrink: 0;
-  padding: 10px 15px 5px 15px;
-  background: inherit;
+  padding: 12px 15px 8px 15px;
+  background: var(--header-bg);
+  color: var(--header-text);
   z-index: 10;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
 }
-.dark .header-fixed {
-  border-bottom-color: rgba(255,255,255,0.05);
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.back-home-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none; /* Visible seulement si hors de l'accueil */
 }
 
 h1 {
   text-align: center;
-  font-size: 22px;
-  margin: 5px 0 10px;
+  font-size: 20px;
+  margin: 0;
+  flex: 1;
 }
 
 /* Recherche */
 #search {
   width: 100%;
-  padding: 10px 12px;
+  padding: 9px 12px;
   border-radius: 10px;
-  border: 1px solid #c9d3e0;
-  font-size: 15px;
-  margin-bottom: 5px;
-  display: block;
+  border: 1px solid rgba(255,255,255,0.3);
+  font-size: 14px;
   outline: none;
-  background: #fff;
-  color: inherit;
-}
-.dark #search {
-  background: #2c2c2e;
-  border-color: #444;
-  color: #fff;
+  background: rgba(255,255,255,0.9);
+  color: #222;
 }
 
-/* Zone scrollable uniquement pour les catégories & cartes */
+/* Zone scrollable */
 .content-scrollable {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 15px 80px 15px; /* Dégagement pour le menu en bas */
+  padding: 15px 15px 80px 15px;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Cartes */
+/* Page d'accueil : Alignement vertical en ligne */
+.home-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+.home-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-left: 6px solid transparent;
+}
+.dark .home-card {
+  background: #2c2c2e;
+}
+
+.home-card:active {
+  transform: scale(0.98);
+}
+
+/* Configuration pour vos PNG 64x64 */
+.home-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.home-card .card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.home-card .app-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.home-card .app-subtext {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* Bordures et couleurs spécifiques par application */
+.card-word { border-left-color: #185abd; }
+.card-word .app-name { color: #185abd; }
+
+.card-excel { border-left-color: #107c41; }
+.card-excel .app-name { color: #107c41; }
+
+.card-access { border-left-color: #a4373a; }
+.card-access .app-name { color: #a4373a; }
+
+.card-publisher { border-left-color: #1fb6c9; }
+.card-publisher .app-name { color: #1fb6c9; }
+
+.dark .card-word .app-name { color: #478cff; }
+.dark .card-excel .app-name { color: #34c759; }
+.dark .card-access .app-name { color: #ff6b6b; }
+.dark .card-publisher .app-name { color: #30d158; }
+
+/* Cartes d'éléments (Raccourcis / Formules / Astuces) */
 .card {
   background: #fff;
   padding: 12px;
@@ -276,7 +365,7 @@ h1 {
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(0,0,0,0.1);
   display: flex;
-  justify-content: space-around;
+  justify-style: space-around;
   align-items: center;
   z-index: 999;
   padding-bottom: env(safe-area-inset-bottom);
@@ -307,7 +396,6 @@ h1 {
   transition: opacity .2s, transform .2s, fill .2s;
 }
 
-/* Style de l'icône fx */
 .fx-icon {
   font-size: 18px;
   font-weight: 700;
@@ -328,7 +416,7 @@ h1 {
   color: #0a84ff;
 }
 
-/* Fenêtres Popup */
+/* Popups */
 .popup {
   position: fixed;
   top: 50%;
@@ -380,7 +468,6 @@ h1 {
   color: #fff;
 }
 
-/* Boutons réduits */
 .popup button, .btn-small {
   margin-top: 10px;
   padding: 8px 10px;
@@ -398,7 +485,6 @@ h1 {
   margin-top: 6px;
 }
 
-/* Fenêtre symboles Mac */
 #macSymbols {
   top: 45%;
   width: 80%;
@@ -424,7 +510,6 @@ h1 {
   border-color: #555;
 }
 
-/* Catégories */
 .category {
   font-weight: bold;
   margin: 12px 0 6px;
@@ -434,13 +519,6 @@ h1 {
 }
 .dark .category {
   color: #0a84ff;
-}
-
-/* Grille de paramètres */
-.settings-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
 }
 
 .image-url-group {
@@ -455,15 +533,65 @@ h1 {
 <body>
 
 <div class="app">
-  <!-- Section En-tête Fixe -->
-  <div class="header-fixed">
-    <h1 id="title">Excel Pro</h1>
-    <input id="search" placeholder="Chercher…">
+  <!-- En-tête Dynamique -->
+  <div class="header-fixed" id="headerFixed">
+    <div class="header-top">
+      <button class="back-home-btn" id="backHomeBtn" onclick="goHome()">‹ Accueil</button>
+      <h1 id="title">Raccourcis, Truc & Astuce</h1>
+      <div style="width: 50px;"></div>
+    </div>
+    <input id="search" placeholder="Rechercher…" style="display:none;">
   </div>
 
-  <!-- Section Cartes Scrollable -->
+  <!-- Zone Principale Scrollable -->
   <div class="content-scrollable">
-    <div id="list"></div>
+    
+    <!-- Page d'accueil (Cartes alignées de haut en bas) -->
+    <div id="homePage">
+      <div class="home-list">
+        
+        <!-- Word -->
+        <div class="home-card card-word" onclick="openApp('word')">
+          <img src="word.png" alt="Word" onerror="word.png">
+          <div class="card-info">
+            <span class="app-name">Word</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
+        </div>
+
+        <!-- Excel -->
+        <div class="home-card card-excel" onclick="openApp('excel')">
+          <img src="excel.png" alt="Excel" onerror="excel64.png">
+          <div class="card-info">
+            <span class="app-name">Excel</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
+        </div>
+
+        <!-- Access -->
+        <div class="home-card card-access" onclick="openApp('access')">
+          <img src="access.png" alt="Access" onerror="access.png">
+          <div class="card-info">
+            <span class="app-name">Access</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
+        </div>
+
+        <!-- Publisher -->
+        <div class="home-card card-publisher" onclick="openApp('publisher')">
+          <img src="publisher.png" alt="Publisher" onerror="publisher.png">
+          <div class="card-info">
+            <span class="app-name">Publisher</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Liste des éléments pour l'application sélectionnée -->
+    <div id="list" style="display:none;"></div>
+
   </div>
 </div>
 
@@ -474,27 +602,26 @@ h1 {
   <label>Type</label>
   <select id="addType" onchange="toggleAddFields()">
     <option value="raccourcis">Raccourci</option>
-    <option value="formules" selected>Formule</option>
+    <option value="formules" selected>Formule / Fonction</option>
     <option value="astuces">Astuce</option>
   </select>
 
   <label>Action / Titre</label>
-  <input id="addAction" placeholder="ex: =SOMME() ou astuce">
+  <input id="addAction" placeholder="ex: Enregistrer sous ou =SOMME()">
 
   <div id="addRaccourciFields" style="display:none;">
     <label>Windows</label>
-    <input id="addWin" placeholder="ex: Ctrl + C">
+    <input id="addWin" placeholder="ex: Ctrl + S">
 
     <label>Mac</label>
-    <input id="addMac" placeholder="ex: Cmd + C">
+    <input id="addMac" placeholder="ex: Cmd + S">
   </div>
 
   <div id="addDescField">
     <label>Description</label>
-    <input id="addDesc" placeholder="ex: Additionne les cellules">
+    <input id="addDesc" placeholder="ex: Description courte">
   </div>
 
-  <!-- Conteneur d'images/URLs pour l'ajout -->
   <label>Images Explicatives (URLs)</label>
   <div id="addImageUrlsContainer"></div>
   <button type="button" class="btn-small" style="background:#5856d6; margin-top:5px;" onclick="addUrlInput('addImageUrlsContainer')">+ Ajouter une URL d'image (Max 5)</button>
@@ -523,7 +650,6 @@ h1 {
     <input id="editDesc">
   </div>
 
-  <!-- Conteneur d'images/URLs pour la modification -->
   <label>Images Explicatives (URLs)</label>
   <div id="editImageUrlsContainer"></div>
   <button type="button" class="btn-small" style="background:#5856d6; margin-top:5px;" onclick="addUrlInput('editImageUrlsContainer')">+ Ajouter une URL d'image (Max 5)</button>
@@ -536,51 +662,10 @@ h1 {
 <div id="settings" class="popup">
   <h3 class="popup-title">Paramètres</h3>
 
-  <div class="settings-grid">
-    <div>
-      <label>Fond App</label>
-      <input type="color" id="bgColor" value="#f2f5fa" onchange="updateSettings()">
-    </div>
-    <div>
-      <label>Texte App</label>
-      <input type="color" id="textColor" value="#222222" onchange="updateSettings()">
-    </div>
-    <div>
-      <label>Fond Cartes</label>
-      <input type="color" id="cardBgColor" value="#ffffff" onchange="updateSettings()">
-    </div>
-    <div>
-      <label>Titre Cartes</label>
-      <input type="color" id="cardTitleColor" value="#222222" onchange="updateSettings()">
-    </div>
-    <div>
-      <label>Texte Cartes</label>
-      <input type="color" id="cardTextColor" value="#444444" onchange="updateSettings()">
-    </div>
-    <div>
-      <label>Titre principal</label>
-      <input type="color" id="mainTitleColor" value="#222222" onchange="updateSettings()">
-    </div>
-    <div>
-      <label>Catégories</label>
-      <input type="color" id="categoryColor" value="#007aff" onchange="updateSettings()">
-    </div>
-  </div>
-
-  <label>Taille police titre carte (px)</label>
-  <input type="number" id="fontSize" value="17" onchange="updateSettings()">
-
-  <label>Style du titre carte</label>
-  <div style="display:flex; gap:5px; margin-top:4px;">
-    <button type="button" class="btn-small" style="margin:0;" onclick="toggleStyle('bold')">Gras</button>
-    <button type="button" class="btn-small" style="margin:0;" onclick="toggleStyle('italic')">Italique</button>
-    <button type="button" class="btn-small" style="margin:0;" onclick="toggleStyle('underline')">Souligné</button>
-  </div>
-
-  <label>Thème</label>
+  <label>Thème Sombre</label>
   <button type="button" class="btn-small" onclick="toggleDark()">Activer / Désactiver Sombre</button>
 
-  <label>Sauvegarde des données</label>
+  <label>Sauvegarde globale des données</label>
   <div style="display:flex; gap:5px; margin-top:4px;">
     <button type="button" class="btn-small" style="margin:0; background:#34c759;" onclick="exportData()">Télécharger</button>
     <button type="button" class="btn-small" style="margin:0; background:#007aff;" onclick="copyBackupText()">Copier Texte</button>
@@ -605,7 +690,6 @@ h1 {
 <!-- Fenêtre Symboles Mac -->
 <div id="macSymbols" class="popup">
   <h3 style="text-align:center; margin-bottom:8px; margin-top: 0; font-size:16px;">Symboles Mac</h3>
-
   <div style="display:flex; gap:5px; justify-content:center; flex-wrap:wrap;">
     <div class="macKey" onclick="insertMacSymbol('⌘')">⌘</div>
     <div class="macKey" onclick="insertMacSymbol('⌥')">⌥</div>
@@ -616,90 +700,107 @@ h1 {
     <div class="macKey" onclick="insertMacSymbol('Enter')">Enter</div>
     <div class="macKey" onclick="insertMacSymbol('Esc')">Esc</div>
   </div>
-
   <button class="secondary" onclick="macSymbols.style.display='none'">Fermer</button>
 </div>
 
 <!-- Barre de navigation fixe -->
 <div class="menu">
-  <div class="menu-item active" onclick="setActiveNav(this); showAll()">
+  <!-- Accueil -->
+  <div class="menu-item active" onclick="goHome()">
     <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
   </div>
+  <!-- Raccourcis -->
   <div class="menu-item" onclick="setActiveNav(this); filterCat('raccourcis')">
     <svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zM7 13H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm1-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
   </div>
+  <!-- Formules / Fonctions -->
   <div class="menu-item" onclick="setActiveNav(this); filterCat('formules')">
     <span class="fx-icon">fx</span>
   </div>
+  <!-- Astuces -->
   <div class="menu-item" onclick="setActiveNav(this); filterCat('astuces')">
     <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
   </div>
+  <!-- Favoris -->
   <div class="menu-item" onclick="setActiveNav(this); showFavs()">
     <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
   </div>
+  <!-- Paramètres -->
   <div class="menu-item" onclick="settings.style.display='block'">
     <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5-3.5z"/></svg>
   </div>
+  <!-- Ajouter -->
   <div class="menu-item" onclick="openAddPopup()">
     <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
   </div>
 </div>
 
 <script>
+let currentApp = null;
 let currentCategoryFilter = 'all';
-let styleState = {bold: false, italic: false, underline: false};
 let editingItem = null;
 
-/* Données par défaut */
+const appThemes = {
+  word: { name: "Word", color: "#185abd" },
+  excel: { name: "Excel", color: "#107c41" },
+  access: { name: "Access", color: "#a4373a" },
+  publisher: { name: "Publisher", color: "#077568" }
+};
+
 let defaultItems = [
-  {type:"raccourcis", action:"Aller à la cellule suivante (droite)", win:"Ctrl + Tab", mac:"⌘ + Tab", desc:"", images:[], fav:false},
-  {type:"raccourcis", action:"Copier", win:"Ctrl + C", mac:"⌘ + C", desc:"", images:[], fav:false},
-  {type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionner une plage de cellules", images:[], fav:false},
-  {type:"astuces", action:"Tableaux dynamiques", win:"", mac:"", desc:"Ctrl + T pour créer un tableau", images:[], fav:false}
+  {app:"excel", type:"raccourcis", action:"Copier", win:"Ctrl + C", mac:"⌘ + C", desc:"", images:[], fav:false},
+  {app:"excel", type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionne une plage de cellules", images:[], fav:false},
+  {app:"word", type:"raccourcis", action:"Gras", win:"Ctrl + G", mac:"⌘ + B", desc:"Mettre le texte en gras", images:[], fav:false},
+  {app:"access", type:"astuces", action:"Créer une requête", win:"", mac:"", desc:"Utiliser le créateur de requêtes SQL", images:[], fav:false},
+  {app:"publisher", type:"astuces", action:"Repères de page", win:"", mac:"", desc:"Activer les repères pour la mise en page", images:[], fav:false}
 ];
 
-/* Chargement des données */
-let items = JSON.parse(localStorage.getItem("excel_items") || "null");
+let items = JSON.parse(localStorage.getItem("office_pro_items") || "null");
 if(!items) { items = defaultItems; saveItems(); }
 
-/* Chargement des préférences de style */
-let savedStyles = JSON.parse(localStorage.getItem("excel_settings") || "{}");
-
-function initSettingsFields() {
-  if (savedStyles.bgColor) bgColor.value = savedStyles.bgColor;
-  if (savedStyles.textColor) textColor.value = savedStyles.textColor;
-  if (savedStyles.cardBgColor) cardBgColor.value = savedStyles.cardBgColor;
-  if (savedStyles.cardTitleColor) cardTitleColor.value = savedStyles.cardTitleColor;
-  if (savedStyles.cardTextColor) cardTextColor.value = savedStyles.cardTextColor;
-  if (savedStyles.mainTitleColor) mainTitleColor.value = savedStyles.mainTitleColor;
-  if (savedStyles.categoryColor) categoryColor.value = savedStyles.categoryColor;
-  if (savedStyles.fontSize) fontSize.value = savedStyles.fontSize;
-}
-
 function saveItems(){
-  localStorage.setItem("excel_items", JSON.stringify(items));
+  localStorage.setItem("office_pro_items", JSON.stringify(items));
 }
 
-function updateSettings() {
-  savedStyles = {
-    bgColor: bgColor.value,
-    textColor: textColor.value,
-    cardBgColor: cardBgColor.value,
-    cardTitleColor: cardTitleColor.value,
-    cardTextColor: cardTextColor.value,
-    mainTitleColor: mainTitleColor.value,
-    categoryColor: categoryColor.value,
-    fontSize: fontSize.value
-  };
-  localStorage.setItem("excel_settings", JSON.stringify(savedStyles));
-  applyGlobalStyles();
+/* Navigation principale */
+function goHome() {
+  currentApp = null;
+  currentCategoryFilter = 'all';
+  title.textContent = "Raccourcis, Truc & Astuce";
+  document.documentElement.style.setProperty('--header-bg', '#2c3e50');
+  search.style.display = "none";
+  backHomeBtn.style.display = "none";
+  homePage.style.display = "block";
+  list.style.display = "none";
+  setActiveNav(document.querySelectorAll('.menu-item')[0]);
 }
 
-/* Fonctions de gestion des URLs d'images dynamiques (jusqu'à 5) */
+function openApp(appName) {
+  currentApp = appName;
+  currentCategoryFilter = 'all';
+  const theme = appThemes[appName];
+  
+  title.textContent = theme.name;
+  document.documentElement.style.setProperty('--header-bg', theme.color);
+  
+  search.style.display = "block";
+  backHomeBtn.style.display = "block";
+  homePage.style.display = "none";
+  list.style.display = "block";
+  
+  setActiveNav(document.querySelectorAll('.menu-item')[0]);
+  render();
+}
+
+function setActiveNav(el) {
+  document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+/* URLs d'images dynamiques */
 function addUrlInput(containerId, value = "") {
   let container = document.getElementById(containerId);
-  let currentInputs = container.querySelectorAll("input");
-  if (currentInputs.length >= 5) {
+  if (container.querySelectorAll("input").length >= 5) {
     alert("Vous ne pouvez pas ajouter plus de 5 adresses d'images.");
     return;
   }
@@ -731,34 +832,28 @@ function addUrlInput(containerId, value = "") {
 
 function getUrlsFromContainer(containerId) {
   let container = document.getElementById(containerId);
-  let inputs = container.querySelectorAll("input");
   let urls = [];
-  inputs.forEach(inp => {
+  container.querySelectorAll("input").forEach(inp => {
     let val = inp.value.trim();
     if (val) urls.push(val);
   });
   return urls;
 }
 
-/* Fonctions d'exportation et d'importation */
+/* Fonctions d'importation / exportation */
 function exportData() {
-  if (confirm("Voulez-vous exporter et télécharger l'ensemble de vos données ?")) {
-    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(items, null, 2));
-    let downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "excel_pro_sauvegarde.json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  }
+  let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(items, null, 2));
+  let downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute("href", dataStr);
+  downloadAnchor.setAttribute("download", "office_raccourcis_sauvegarde.json");
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
 }
 
 function copyBackupText() {
-  let str = JSON.stringify(items, null, 2);
-  navigator.clipboard.writeText(str).then(() => {
-    alert("Données copiées dans le presse-papier ! Vous pouvez les coller dans Notes pour les conserver.");
-  }).catch(() => {
-    alert("Erreur lors de la copie.");
+  navigator.clipboard.writeText(JSON.stringify(items, null, 2)).then(() => {
+    alert("Données copiées dans le presse-papier !");
   });
 }
 
@@ -768,123 +863,45 @@ function showPasteArea() {
 
 function importFromPastedText() {
   let text = pasteInput.value.trim();
-  if (!text) {
-    alert("Veuillez coller le texte de sauvegarde.");
-    return;
-  }
   try {
-    let importedItems = JSON.parse(text);
-    if (Array.isArray(importedItems)) {
-      if (confirm("Voulez-vous remplacer vos données actuelles par le texte collé ?")) {
-        items = importedItems;
-        saveItems();
-        render();
-        alert("Restauration réussie !");
-        pasteInput.value = "";
-        pasteAreaBlock.style.display = "none";
-        settings.style.display = 'none';
-      }
-    } else {
-      alert("Le texte collé n'est pas un format valide.");
+    let imported = JSON.parse(text);
+    if (Array.isArray(imported)) {
+      items = imported;
+      saveItems();
+      if(currentApp) render();
+      alert("Restauration réussie !");
+      settings.style.display = 'none';
     }
   } catch(err) {
-    alert("Erreur de format dans le texte collé.");
+    alert("Texte JSON invalide.");
   }
 }
 
-function importData() {
-  importFileInput.click();
-}
+function importData() { importFileInput.click(); }
 
-function handleFileImport(event) {
-  let file = event.target.files[0];
+function handleFileImport(e) {
+  let file = e.target.files[0];
   if (!file) return;
-
   let reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = function(evt) {
     try {
-      let importedItems = JSON.parse(e.target.result);
-      if (Array.isArray(importedItems)) {
-        if (confirm("Voulez-vous remplacer vos données actuelles par celles du fichier importé ?")) {
-          items = importedItems;
-          saveItems();
-          render();
-          alert("Importation réussie !");
-          settings.style.display = 'none';
-        }
-      } else {
-        alert("Le fichier sélectionné est invalide.");
+      let imported = JSON.parse(evt.target.result);
+      if (Array.isArray(imported)) {
+        items = imported;
+        saveItems();
+        if(currentApp) render();
+        alert("Importation réussie !");
+        settings.style.display = 'none';
       }
-    } catch (err) {
-      alert("Erreur lors de la lecture du fichier JSON.");
-    }
+    } catch(err) { alert("Fichier invalide."); }
   };
   reader.readAsText(file);
-  event.target.value = "";
-}
-
-/* Gestion active de la barre de navigation */
-function setActiveNav(el) {
-  document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-  if (el) el.classList.add('active');
-}
-
-/* Styles dynamiques */
-function applyGlobalStyles(){
-  let isDark = document.body.classList.contains("dark");
-
-  if (!isDark) {
-    document.body.style.backgroundColor = bgColor.value || "#f2f5fa";
-    document.body.style.color = textColor.value || "#222";
-  } else {
-    document.body.style.backgroundColor = "";
-    document.body.style.color = "";
-  }
-  
-  title.style.color = isDark ? "" : (mainTitleColor.value || "#222");
-
-  document.querySelectorAll(".category").forEach(cat => {
-    if (!isDark) {
-      cat.style.color = categoryColor.value || "#007aff";
-    } else {
-      cat.style.color = "";
-    }
-  });
-
-  document.querySelectorAll(".card").forEach(card => {
-    if (!isDark) {
-      card.style.backgroundColor = cardBgColor.value || "#ffffff";
-      card.style.color = cardTextColor.value || "#444444";
-    } else {
-      card.style.backgroundColor = "";
-      card.style.color = "";
-    }
-  });
-
-  document.querySelectorAll(".actionText").forEach(el => {
-    el.style.fontSize = (fontSize.value || 17) + "px";
-    el.style.fontWeight = styleState.bold ? "700" : "600";
-    el.style.fontStyle = styleState.italic ? "italic" : "normal";
-    el.style.textDecoration = styleState.underline ? "underline" : "none";
-    if (!isDark) {
-      el.style.color = cardTitleColor.value || "#222222";
-    } else {
-      el.style.color = "";
-    }
-  });
-}
-
-function toggleStyle(type){
-  styleState[type] = !styleState[type];
-  applyGlobalStyles();
 }
 
 function toggleDark(){
   document.body.classList.toggle("dark");
-  applyGlobalStyles();
 }
 
-/* Conversion visuelle des touches */
 function convertKeys(text){
   if(!text) return "";
   return text
@@ -900,26 +917,25 @@ function convertKeys(text){
     .replace(/\+/g, ' + ');
 }
 
-/* Rendu principal */
+/* Rendu de la liste */
 function render(){
+  if(!currentApp) return;
   list.innerHTML = "";
   let cats = ["raccourcis", "formules", "astuces"];
 
   cats.forEach(cat => {
-    let catItems = items.filter(i => i.type === cat);
+    let appItems = items.filter(i => i.app === currentApp && i.type === cat);
 
-    if (currentCategoryFilter !== 'all' && currentCategoryFilter !== 'favs' && currentCategoryFilter !== cat) {
-      return;
-    }
+    if (currentCategoryFilter !== 'all' && currentCategoryFilter !== 'favs' && currentCategoryFilter !== cat) return;
 
-    if (catItems.length > 0 || currentCategoryFilter === cat) {
+    if (appItems.length > 0 || currentCategoryFilter === cat) {
       let titleCat = document.createElement("div");
       titleCat.className = "category";
-      titleCat.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+      titleCat.textContent = cat === "formules" ? (currentApp === "excel" ? "Formules" : "Fonctions") : cat.charAt(0).toUpperCase() + cat.slice(1);
       list.appendChild(titleCat);
     }
 
-    catItems.forEach(i => {
+    appItems.forEach(i => {
       if (currentCategoryFilter === 'favs' && !i.fav) return;
 
       let card = document.createElement("div");
@@ -930,22 +946,13 @@ function render(){
       if(i.type === "raccourcis"){
         innerContent += `
           <div class="row">
-            <div class="col">
-              <div class="colTitle">Windows</div>
-              <div>${convertKeys(i.win)}</div>
-            </div>
-            <div class="col">
-              <div class="colTitle">Mac</div>
-              <div>${convertKeys(i.mac)}</div>
-            </div>
+            <div class="col"><div class="colTitle">Windows</div><div>${convertKeys(i.win)}</div></div>
+            <div class="col"><div class="colTitle">Mac</div><div>${convertKeys(i.mac)}</div></div>
           </div>`;
       }
 
-      if(i.desc) {
-        innerContent += `<div class="desc">${i.desc}</div>`;
-      }
+      if(i.desc) innerContent += `<div class="desc">${i.desc}</div>`;
 
-      /* Rendu des images associées */
       if(i.images && i.images.length > 0) {
         innerContent += `<div class="images-container">`;
         i.images.forEach((imgUrl, idx) => {
@@ -970,27 +977,22 @@ function render(){
 
       card.innerHTML = innerContent;
 
-      /* Événements Favoris */
       card.querySelector(".fav").onclick = (e) => {
         e.stopPropagation();
         i.fav = !i.fav;
-        saveItems(); 
-        render();
+        saveItems(); render();
       };
 
-      /* Événements Supprimer */
       const deleteAction = (e) => {
         e.stopPropagation();
-        if(confirm("Voulez-vous vraiment supprimer cet élément ?")) {
+        if(confirm("Supprimer cet élément ?")) {
           items = items.filter(x => x !== i);
-          saveItems(); 
-          render();
+          saveItems(); render();
         }
       };
       card.querySelector(".deleteBtn").onclick = deleteAction;
       card.querySelector(".delete-trigger").onclick = deleteAction;
 
-      /* Événements Modifier */
       const editAction = (e) => {
         e.stopPropagation();
         openEditPopup(i);
@@ -998,38 +1000,23 @@ function render(){
       card.querySelector(".editBtn").onclick = editAction;
       card.querySelector(".edit-trigger").onclick = editAction;
 
-      /* Gestion du Swipe mobile */
+      /* Swipe mobile */
       let startX = 0;
       card.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive: true});
       card.addEventListener("touchend", e => {
-        let endX = e.changedTouches[0].clientX;
-        let diff = startX - endX;
-        
-        if(diff > 50){
-          card.querySelector(".deleteBtn").style.right = "0px";
-          card.querySelector(".editBtn").style.left = "-80px";
-        } 
-        else if(diff < -50) {
-          card.querySelector(".editBtn").style.left = "0px";
-          card.querySelector(".deleteBtn").style.right = "-80px";
-        }
-        else if (Math.abs(diff) < 10) {
-          card.querySelector(".deleteBtn").style.right = "-80px";
-          card.querySelector(".editBtn").style.left = "-80px";
-        }
+        let diff = startX - e.changedTouches[0].clientX;
+        if(diff > 50){ card.querySelector(".deleteBtn").style.right = "0px"; card.querySelector(".editBtn").style.left = "-80px"; } 
+        else if(diff < -50) { card.querySelector(".editBtn").style.left = "0px"; card.querySelector(".deleteBtn").style.right = "-80px"; }
+        else if (Math.abs(diff) < 10) { card.querySelector(".deleteBtn").style.right = "-80px"; card.querySelector(".editBtn").style.left = "-80px"; }
       }, {passive: true});
 
       list.appendChild(card);
     });
   });
-
-  applyGlobalStyles();
 }
 
-/* Gestion du formulaire Ajouter */
 function toggleAddFields() {
-  let type = addType.value;
-  if(type === "raccourcis") {
+  if(addType.value === "raccourcis") {
     addRaccourciFields.style.display = "block";
     addDescField.style.display = "none";
   } else {
@@ -1039,16 +1026,15 @@ function toggleAddFields() {
 }
 
 function openAddPopup(){
+  if (!currentApp) {
+    alert("Veuillez d'abord choisir une application (Word, Excel, etc.) avant d'ajouter un élément.");
+    return;
+  }
   addType.value = "formules";
   toggleAddFields();
-  addAction.value = "";
-  addWin.value = "";
-  addMac.value = "";
-  addDesc.value = "";
-  
+  addAction.value = ""; addWin.value = ""; addMac.value = ""; addDesc.value = "";
   addImageUrlsContainer.innerHTML = "";
-  addUrlInput('addImageUrlsContainer'); // Une première case par défaut
-  
+  addUrlInput('addImageUrlsContainer');
   addPopup.style.display = "block";
 }
 
@@ -1060,28 +1046,14 @@ function addItem(){
   let desc = addDesc.value.trim();
   let images = getUrlsFromContainer('addImageUrlsContainer');
 
-  if(!action){
-    alert("Veuillez saisir une action ou un titre.");
-    return;
-  }
+  if(!action){ alert("Saisissez un titre."); return; }
 
-  if(type === "raccourcis" && (!win || !mac)){
-    alert("Renseignez les touches Windows et Mac pour le raccourci.");
-    return;
-  }
-
-  items.push({type, action, win, mac, desc, images, fav: false});
+  items.push({app: currentApp, type, action, win, mac, desc, images, fav: false});
   saveItems();
-  
   filterCat(type);
-  
-  const navIndex = type === 'raccourcis' ? 1 : (type === 'formules' ? 2 : 3);
-  setActiveNav(document.querySelectorAll('.menu-item')[navIndex]);
-
   addPopup.style.display = "none";
 }
 
-/* Formulaire de modification */
 function openEditPopup(item) {
   editingItem = item;
   editAction.value = item.action || "";
@@ -1096,12 +1068,7 @@ function openEditPopup(item) {
     addUrlInput('editImageUrlsContainer');
   }
 
-  if(item.type === "raccourcis") {
-    editRaccourciFields.style.display = "block";
-  } else {
-    editRaccourciFields.style.display = "none";
-  }
-
+  editRaccourciFields.style.display = item.type === "raccourcis" ? "block" : "none";
   editPopup.style.display = "block";
 }
 
@@ -1113,22 +1080,17 @@ function saveEdit(){
   editingItem.desc = editDesc.value.trim();
   editingItem.images = getUrlsFromContainer('editImageUrlsContainer');
   
-  saveItems(); 
-  render();
+  saveItems(); render();
   editPopup.style.display = "none";
 }
 
-/* Insertion de symboles Mac */
 addMac.onclick = () => { window.currentMacField = addMac; macSymbols.style.display = "block"; };
 editMac.onclick = () => { window.currentMacField = editMac; macSymbols.style.display = "block"; };
 
 function insertMacSymbol(sym){
-  if(window.currentMacField) {
-    window.currentMacField.value += (window.currentMacField.value ? " " : "") + sym;
-  }
+  if(window.currentMacField) window.currentMacField.value += (window.currentMacField.value ? " " : "") + sym;
 }
 
-/* Recherche dynamique */
 search.oninput = () => {
   let q = search.value.toLowerCase().trim();
   document.querySelectorAll(".card").forEach(c => {
@@ -1136,28 +1098,22 @@ search.oninput = () => {
   });
 };
 
-/* Filtrage par catégories */
 function filterCat(cat){
+  if(!currentApp) return;
   currentCategoryFilter = cat;
   search.value = "";
   render();
 }
 
 function showFavs(){
+  if(!currentApp) return;
   currentCategoryFilter = 'favs';
   search.value = "";
   render();
 }
 
-function showAll(){
-  currentCategoryFilter = 'all';
-  search.value = "";
-  render();
-}
-
-/* Initialisation au chargement */
-initSettingsFields();
-render();
+// Démarrer sur la page d'accueil
+goHome();
 </script>
 
 </body>
