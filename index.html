@@ -37,6 +37,7 @@ html, body {
 .dark {
   background: #1c1c1e;
   color: #eee;
+  --custom-text-color: #eee;
 }
 
 .app {
@@ -144,9 +145,9 @@ h1 {
   height: 64px;
   object-fit: contain;
   flex-shrink: 0;
-  background-color: #ffffff; /* 👈 Ajoute le fond blanc autour de l'icône */
-  border-radius: 12px;       /* Arrondit légèrement les coins du fond blanc */
-  padding: 4px;              /* Ajoute un petit espace intérieur autour de l'icône */
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 4px;
 }
 
 .home-card .card-info {
@@ -244,6 +245,7 @@ h1 {
   font-weight: 600;
   box-shadow: 0 1px 2px rgba(0,0,0,0.12);
   margin: 1px;
+  color: #222;
 }
 .dark .key {
   background: #3a3a3c;
@@ -381,7 +383,7 @@ h1 {
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(0,0,0,0.1);
   display: flex;
-  justify-style: space-around;
+  justify-space: space-around;
   align-items: center;
   z-index: 999;
   padding-bottom: env(safe-area-inset-bottom);
@@ -901,7 +903,13 @@ function applyVisualSettings(save = true) {
     root.style.setProperty('--header-bg', headerBg);
   }
   root.style.setProperty('--custom-title-color', titleColor);
-  root.style.setProperty('--custom-text-color', textColor);
+  
+  if (!document.body.classList.contains("dark")) {
+    root.style.setProperty('--custom-text-color', textColor);
+  } else {
+    root.style.removeProperty('--custom-text-color');
+  }
+
   root.style.setProperty('--custom-category-color', categoryColor);
   root.style.setProperty('--custom-font-size', fontSize);
   root.style.setProperty('--custom-font-weight', bold ? 'bold' : 'normal');
@@ -1048,6 +1056,7 @@ function handleFileImport(e) {
 
 function toggleDark(){
   document.body.classList.toggle("dark");
+  applyVisualSettings(false);
 }
 
 function convertKeys(text){
