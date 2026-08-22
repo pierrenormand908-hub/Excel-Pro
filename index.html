@@ -381,7 +381,7 @@ h1 {
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid rgba(0,0,0,0.1);
   display: flex;
-  justify-content: space-around;
+  justify-style: space-around;
   align-items: center;
   z-index: 999;
   padding-bottom: env(safe-area-inset-bottom);
@@ -599,7 +599,7 @@ h1 {
         
         <!-- Word -->
         <div class="home-card card-word" onclick="openApp('word')">
-          <img src="word.png" alt="Word" onerror="word.png">
+          <img src="word.png" alt="Word" onerror="this.onerror=null; this.src='word.png';">
           <div class="card-info">
             <span class="app-name">Word</span>
             <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
@@ -608,7 +608,7 @@ h1 {
 
         <!-- Excel -->
         <div class="home-card card-excel" onclick="openApp('excel')">
-          <img src="excel64.png" alt="Excel" onerror="excel64.png">
+          <img src="excel64.png" alt="Excel" onerror="this.onerror=null; this.src='excel64.png';">
           <div class="card-info">
             <span class="app-name">Excel</span>
             <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
@@ -617,7 +617,7 @@ h1 {
 
         <!-- Access -->
         <div class="home-card card-access" onclick="openApp('access')">
-          <img src="access.png" alt="Access" onerror="access.png">
+          <img src="access.png" alt="Access" onerror="this.onerror=null; this.src='access.png';">
           <div class="card-info">
             <span class="app-name">Access</span>
             <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
@@ -626,7 +626,7 @@ h1 {
 
         <!-- Publisher -->
         <div class="home-card card-publisher" onclick="openApp('publisher')">
-          <img src="publisher.png" alt="Publisher" onerror="publisher.png">
+          <img src="publisher.png" alt="Publisher" onerror="this.onerror=null; this.src='publisher.png';">
           <div class="card-info">
             <span class="app-name">Publisher</span>
             <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
@@ -836,7 +836,7 @@ const appThemes = {
   publisher: { name: "Publisher", color: "#077568" }
 };
 
- let defaultItems = [
+let defaultItems = [
   {app:"excel", type:"raccourcis", action:"Aller à la cellule suivante (droite)", win:"Tab", mac:"Tab", desc:"", images:[], fav:false},
   {app:"excel", type:"raccourcis", action:"Copier la sélection", win:"Ctrl + C", mac:"⌘ + C", desc:"", images:[], fav:false},
   {app:"excel", type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionner une plage de cellules", images:[], fav:false},
@@ -852,7 +852,7 @@ const appThemes = {
   {app:"excel", type:"raccourcis", action:"Aller à la cellule précédente ( gauche )", win:"Maj + Tab", mac:"⇧ + Tab", desc:"", images:[], fav:false},
   {app:"excel", type:"raccourcis", action:"Aller à la cellule du dessous", win:"Entrée", mac:"Enter", desc:"", images:[], fav:false},
   {app:"excel", type:"raccourcis", action:"Aller à la cellule du dessus", win:"Maj + Entrée", mac:"⇧ + Enter", desc:"", images:[], fav:false},
-  {app:"excel", type:"raccourcis", action:"Sélectionner toute la feuille", win:"Ctrl + A", mac:"⌘ + A", desc:"", images:[], fav:false}
+  {app:"excel", type:"raccourcis", action:"Sélectionner toute la feuille", win:"Ctrl + A", mac:"⌘ + A", desc:"", images:[], fav:false},
   {app:"word", type:"raccourcis", action:"Gras", win:"Ctrl + G", mac:"⌘ + B", desc:"Mettre le texte en gras", images:[], fav:false},
   {app:"access", type:"astuces", action:"Créer une requête", win:"", mac:"", desc:"Utiliser le créateur de requêtes SQL", images:[], fav:false},
   {app:"publisher", type:"astuces", action:"Repères de page", win:"", mac:"", desc:"Activer les repères pour la mise en page", images:[], fav:false}
