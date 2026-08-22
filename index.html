@@ -836,9 +836,23 @@ const appThemes = {
   publisher: { name: "Publisher", color: "#077568" }
 };
 
-let defaultItems = [
-  {app:"excel", type:"raccourcis", action:"Copier", win:"Ctrl + C", mac:"⌘ + C", desc:"", images:[], fav:false},
-  {app:"excel", type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionne une plage de cellules", images:[], fav:false},
+ let defaultItems = [
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule suivante (droite)", win:"Tab", mac:"Tab", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Copier la sélection", win:"Ctrl + C", mac:"⌘ + C", desc:"", images:[], fav:false},
+  {app:"excel", type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionner une plage de cellules", images:[], fav:false},
+  {app:"excel", type:"astuces", action:"Tableaux dynamiques", win:"", mac:"", desc:"Ctrl + T pour créer un tableau", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Coller", win:"Ctrl + V", mac:"⌘ + V", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Annuler la dernière action", win:"Ctrl + Z", mac:"⌘ + Z", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Enregistrer", win:"Ctrl + S", mac:"⌘ + S", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Remplir toutes les cellules sélectionnées", win:"Ctrl + Entrée", mac:"⌘ + Entrée", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Ouvrir Format de cellule", win:"Ctrl + I", mac:"⌘ + I", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Mettre en gras", win:"Ctrl + G", mac:"⌘ + B", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Insérer une somme automatique ( SOMME )", win:"Alt + =", mac:"⌘ + ⇧ + T", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Créer un tableau", win:"Ctrl + T", mac:"⌘ + T", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule précédente ( gauche )", win:"Maj + Tab", mac:"⇧ + Tab", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule du dessous", win:"Entrée", mac:"Enter", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule du dessus", win:"Maj + Entrée", mac:"⇧ + Enter", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Sélectionner toute la feuille", win:"Ctrl + A", mac:"⌘ + A", desc:"", images:[], fav:false}
   {app:"word", type:"raccourcis", action:"Gras", win:"Ctrl + G", mac:"⌘ + B", desc:"Mettre le texte en gras", images:[], fav:false},
   {app:"access", type:"astuces", action:"Créer une requête", win:"", mac:"", desc:"Utiliser le créateur de requêtes SQL", images:[], fav:false},
   {app:"publisher", type:"astuces", action:"Repères de page", win:"", mac:"", desc:"Activer les repères pour la mise en page", images:[], fav:false}
