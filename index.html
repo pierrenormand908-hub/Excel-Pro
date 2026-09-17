@@ -512,7 +512,6 @@
             <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
           </div>
         </div>
-        <!-- Nouvelle carte Windows -->
         <div class="home-card card-windows" onclick="openApp('windows')">
           <img src="windows.png" alt="Windows" onerror="this.onerror=null;this.src='windows.png'">
           <div class="card-info">
@@ -632,10 +631,10 @@
 <!-- Menu Navigation du bas -->
 <div class="menu">
   <div class="menu-item active" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
-  <div class="menu-item" onclick="setActiveNav(this);filterCat('raccourcis')"><svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zM7 13H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm1-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg></div>
-  <div class="menu-item" onclick="setActiveNav(this);filterCat('formules')"><span class="fx-icon">fx</span></div>
-  <div class="menu-item" onclick="setActiveNav(this);filterCat('astuces')"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg></div>
-  <div class="menu-item" onclick="setActiveNav(this);showFavs()"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+  <div class="menu-item" onclick="handleBottomNav(this, 'raccourcis')"><svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zM7 13H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm1-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg></div>
+  <div class="menu-item" onclick="handleBottomNav(this, 'formules')"><span class="fx-icon">fx</span></div>
+  <div class="menu-item" onclick="handleBottomNav(this, 'astuces')"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg></div>
+  <div class="menu-item" onclick="handleBottomNav(this, 'favs')"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
   <div class="menu-item" onclick="settings.style.display='block'"><svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5-3.5z"/></svg></div>
   <div class="menu-item" onclick="openAddPopup()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
 </div>
@@ -682,7 +681,6 @@ function saveItems(){
   localStorage.setItem("office_pro_items", JSON.stringify(items));
 }
 
-/* Gestion des réglages visuels dans les paramètres */
 let userVisualSettings = JSON.parse(localStorage.getItem("office_pro_visuals") || "{}");
 
 function initVisualSettings() {
@@ -726,17 +724,32 @@ function applyVisualSettings(save = true) {
   root.style.setProperty('--custom-text-decoration', underline ? 'underline' : 'none');
 }
 
-/* Navigation principale */
+/* Réinitialisation complète pour éviter la page blanche */
 function goHome() {
   currentApp = null;
   currentCategoryFilter = 'all';
+  
+  const searchInput = document.getElementById("search");
+  if (searchInput) {
+    searchInput.value = "";
+    searchInput.style.display = "none";
+  }
+  
   title.textContent = "Raccourcis, Truc & Astuce";
   const defaultHeader = userVisualSettings.headerBg || '#2c3e50';
   document.documentElement.style.setProperty('--header-bg', defaultHeader);
-  search.style.display = "none";
+  
   backHomeBtn.style.display = "none";
-  homePage.style.display = "block";
-  list.style.display = "none";
+  
+  const homePageEl = document.getElementById("homePage");
+  const listEl = document.getElementById("list");
+  
+  if (homePageEl) homePageEl.style.display = "block";
+  if (listEl) {
+    listEl.style.display = "none";
+    listEl.innerHTML = "";
+  }
+  
   setActiveNav(document.querySelectorAll('.menu-item')[0]);
 }
 
@@ -748,10 +761,19 @@ function openApp(appName) {
   title.textContent = theme.name;
   document.documentElement.style.setProperty('--header-bg', theme.color);
   
-  search.style.display = "block";
+  const searchInput = document.getElementById("search");
+  if (searchInput) {
+    searchInput.value = "";
+    searchInput.style.display = "block";
+  }
+  
   backHomeBtn.style.display = "block";
-  homePage.style.display = "none";
-  list.style.display = "block";
+  
+  const homePageEl = document.getElementById("homePage");
+  const listEl = document.getElementById("list");
+  
+  if (homePageEl) homePageEl.style.display = "none";
+  if (listEl) listEl.style.display = "block";
   
   setActiveNav(document.querySelectorAll('.menu-item')[0]);
   render();
@@ -762,7 +784,16 @@ function setActiveNav(el) {
   if (el) el.classList.add('active');
 }
 
-/* URLs d'images dynamiques */
+function handleBottomNav(el, cat) {
+  if (!currentApp) return;
+  setActiveNav(el);
+  if (cat === 'favs') {
+    showFavs();
+  } else {
+    filterCat(cat);
+  }
+}
+
 function addUrlInput(containerId, value = "") {
   let container = document.getElementById(containerId);
   if (container.querySelectorAll("input").length >= 5) {
@@ -805,7 +836,6 @@ function getUrlsFromContainer(containerId) {
   return urls;
 }
 
-/* Fonctions d'importation / exportation */
 function exportData() {
   let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(items, null, 2));
   let downloadAnchor = document.createElement('a');
@@ -882,10 +912,12 @@ function convertKeys(text){
     .replace(/\+/g, ' + ');
 }
 
-/* Rendu de la liste */
 function render(){
   if(!currentApp) return;
-  list.innerHTML = "";
+  const listEl = document.getElementById("list");
+  if(!listEl) return;
+  
+  listEl.innerHTML = "";
   let cats = ["raccourcis", "formules", "astuces"];
 
   cats.forEach(cat => {
@@ -897,7 +929,7 @@ function render(){
       let titleCat = document.createElement("div");
       titleCat.className = "category";
       titleCat.textContent = cat === "formules" ? (currentApp === "excel" ? "Formules" : "Fonctions") : cat.charAt(0).toUpperCase() + cat.slice(1);
-      list.appendChild(titleCat);
+      listEl.appendChild(titleCat);
     }
 
     appItems.forEach(i => {
@@ -965,7 +997,6 @@ function render(){
       card.querySelector(".editBtn").onclick = editAction;
       card.querySelector(".edit-trigger").onclick = editAction;
 
-      /* Swipe mobile */
       let startX = 0;
       card.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive: true});
       card.addEventListener("touchend", e => {
@@ -975,7 +1006,7 @@ function render(){
         else if (Math.abs(diff) < 10) { card.querySelector(".deleteBtn").style.right = "-80px"; card.querySelector(".editBtn").style.left = "-80px"; }
       }, {passive: true});
 
-      list.appendChild(card);
+      listEl.appendChild(card);
     });
   });
 }
@@ -1066,18 +1097,19 @@ search.oninput = () => {
 function filterCat(cat){
   if(!currentApp) return;
   currentCategoryFilter = cat;
-  search.value = "";
+  const searchInput = document.getElementById("search");
+  if (searchInput) searchInput.value = "";
   render();
 }
 
 function showFavs(){
   if(!currentApp) return;
   currentCategoryFilter = 'favs';
-  search.value = "";
+  const searchInput = document.getElementById("search");
+  if (searchInput) searchInput.value = "";
   render();
 }
 
-// Initialiser les réglages visuels et démarrer sur l'accueil
 initVisualSettings();
 goHome();
 </script>
