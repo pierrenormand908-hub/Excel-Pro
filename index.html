@@ -1,14 +1,474 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Office-Pro</title>
-<link rel="apple-touch-icon" href="Office_Pro.png">
-<link rel="icon" type="image/png" href="Office_Pro.png">
-<style>
-*{box-sizing:border-box}:root{--header-bg:#2c3e50;--header-text:#fff;--custom-text-color:inherit;--custom-title-color:inherit;--custom-category-color:#007aff;--custom-font-size:14px;--custom-font-weight:normal;--custom-font-style:normal;--custom-text-decoration:none}html,body{height:100%;margin:0;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f2f5fa;color:#222;transition:background-color .3s,color .3s;-webkit-tap-highlight-color:transparent}.dark{background:#1c1c1e;color:#eee}.app{max-width:480px;margin:0 auto;height:100%;display:flex;flex-direction:column}.header-fixed{flex-shrink:0;padding:12px 15px 8px;background:var(--header-bg);color:var(--header-text);z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:background-color .3s ease}.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.back-home-btn{background:rgba(255,255,255,.2);border:none;color:#fff;padding:4px 10px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;display:none}h1{text-align:center;font-size:20px;margin:0;flex:1;color:var(--custom-title-color)}#search{width:100%;padding:9px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.3);font-size:14px;outline:0;background:rgba(255,255,255,.9);color:#222}.content-scrollable{flex:1;overflow-y:auto;padding:15px 15px 80px;-webkit-overflow-scrolling:touch;color:var(--custom-text-color);font-size:var(--custom-font-size);font-weight:var(--custom-font-weight);font-style:var(--custom-font-style);text-decoration:var(--custom-text-decoration)}.home-list{display:flex;flex-direction:column;gap:12px;margin-top:5px}.home-card{background:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 4px 12px rgba(0,0,0,.06);cursor:pointer;transition:transform .2s,box-shadow .2s;display:flex;align-items:center;gap:16px;border-left:6px solid transparent}.dark .home-card{background:#2c2c2e}.home-card:active{transform:scale(.98)}.home-card img{width:64px;height:64px;object-fit:contain;flex-shrink:0;background-color:#fff;border-radius:12px;padding:4px}.home-card .card-info{display:flex;flex-direction:column;justify-content:center;text-align:left}.home-card .app-name{font-size:20px;font-weight:700;margin-bottom:2px}.home-card .app-subtext{font-size:13px;opacity:.7}.card-word{border-left-color:#185abd}.card-word .app-name{color:#185abd}.card-excel{border-left-color:#107c41}.card-excel .app-name{color:#107c41}.card-access{border-left-color:#a4373a}.card-access .app-name{color:#a4373a}.card-publisher{border-left-color:#0f807e}.card-publisher .app-name{color:#0f807e}.card-windows{border-left-color:#0078d4}.card-windows .app-name{color:#0078d4}.dark .card-word .app-name{color:#478cff}.dark .card-excel .app-name{color:#34c759}.dark .card-access .app-name{color:#ff6b6b}.dark .card-publisher .app-name{color:#30d158}.dark .card-windows .app-name{color:#60a5fa}.card{background:#fff;padding:12px;border-radius:12px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.06);position:relative;overflow:hidden;transition:background-color .3s,color .3s}.dark .card{background:#2c2c2e}.actionText{font-size:17px;font-weight:600;margin-bottom:6px;padding-right:30px}.desc{font-size:14px;opacity:.85;line-height:1.3;margin-bottom:8px}.row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px;gap:8px}.col{width:50%}.colTitle{font-size:11px;font-weight:700;margin-bottom:3px;opacity:.6;text-transform:uppercase}.key{display:inline-block;padding:3px 6px;background:#fff;border:1px solid #c3c7d1;border-radius:5px;font-size:12px;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12);margin:1px}.dark .key{background:#3a3a3c;border-color:#555;color:#fff}.win,.mac{font-size:13px;margin-right:2px}.images-container{margin-top:10px;display:flex;flex-direction:column;gap:8px}.img-preview-box{width:100%;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.1);background:#f8f9fa;text-align:center}.dark .img-preview-box{background:#222;border-color:rgba(255,255,255,.1)}.img-preview-box img{width:100%;max-height:220px;object-fit:contain;display:block}.img-link-btn{display:inline-block;font-size:12px;padding:4px 8px;color:#007aff;text-decoration:none;font-weight:600}.fav{position:absolute;right:10px;top:10px;font-size:20px;cursor:pointer;color:#ccc;user-select:none}.fav.active{color:#fc0}.card-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:8px;padding-top:6px;border-top:1px solid rgba(0,0,0,.05)}.dark .card-actions{border-top-color:rgba(255,255,255,.08)}.action-icon-btn{background:0 0;border:none;font-size:13px;padding:3px 6px;border-radius:5px;cursor:pointer;display:flex;align-items:center;gap:3px;color:#666}.dark .action-icon-btn{color:#aaa}.deleteBtn{position:absolute;right:-80px;top:0;bottom:0;width:80px;background:#ff3b30;color:#fff;display:flex;justify-content:center;align-items:center;font-size:18px;border-radius:0 12px 12px 0;transition:right .25s ease}.editBtn{position:absolute;left:-80px;top:0;bottom:0;width:80px;background:#007aff;color:#fff;display:flex;justify-content:center;align-items:center;font-size:18px;border-radius:12px 0 0 12px;transition:left .25s ease}.menu{position:fixed;bottom:0;left:0;right:0;height:60px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid rgba(0,0,0,.1);display:flex;justify-content:space-around;align-items:center;z-index:999;padding-bottom:env(safe-area-inset-bottom);color:#222}.dark .menu{background:rgba(44,44,46,.95);border-top:1px solid rgba(255,255,255,.1);color:#fff}.menu-item{display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;width:14%;height:100%;color:inherit}.menu-item svg{width:22px;height:22px;fill:currentColor;opacity:.75;transition:opacity .2s,transform .2s,fill .2s}.fx-icon{font-size:18px;font-weight:700;font-style:italic;font-family:Georgia,"Times New Roman",serif;opacity:.75;transition:opacity .2s,transform .2s,color .2s;user-select:none;line-height:1}.menu-item.active svg,.menu-item.active .fx-icon{opacity:1;transform:scale(1.1);color:#007aff}.dark .menu-item.active svg,.dark .menu-item.active .fx-icon{color:#0a84ff}.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:88%;max-width:380px;background:#fff;padding:15px;border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);display:none;z-index:9999;max-height:85vh;overflow-y:auto}.dark .popup{background:#2c2c2e;color:#eee}.popup-title{margin-top:0;margin-bottom:10px;text-align:center;font-size:17px}.popup label{font-size:13px;margin-top:8px;display:block;font-weight:600}.popup input,.popup select,.popup textarea{width:100%;margin-top:3px;padding:7px 9px;border-radius:6px;border:1px solid #ccc;font-size:14px;background:#fff;color:#222}.dark .popup input,.dark .popup select,.dark .popup textarea{background:#3a3a3c;border-color:#555;color:#fff}.popup button,.btn-small{margin-top:10px;padding:8px 10px;border:none;border-radius:6px;background:#007aff;color:#fff;width:100%;font-size:14px;font-weight:600;cursor:pointer}.popup button.secondary{background:#8e8e93;margin-top:6px}#macSymbols{top:45%;width:80%;padding:10px}.macKey{width:32px;height:32px;background:#fff;border:1px solid #ccc;border-radius:6px;font-size:15px;display:flex;justify-content:center;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.1);cursor:pointer}.dark .macKey{background:#3a3a3c;color:#fff;border-color:#555}.category{font-weight:700;margin:12px 0 6px;font-size:16px;color:var(--custom-category-color);transition:color .3s}.image-url-group{margin-top:6px;padding:6px;border:1px dashed #ccc;border-radius:6px}.setting-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}.setting-row label{margin-top:0}.setting-row input[type=color]{width:40px;height:30px;padding:0;border:none;cursor:pointer}.style-checkboxes{display:flex;gap:10px;margin-top:5px}.style-checkboxes label{display:flex;align-items:center;gap:4px;font-weight:400;margin-top:0}.style-checkboxes input{width:auto;margin:0}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Office-Pro</title>
+  <link rel="apple-touch-icon" href="Office_Pro.png">
+  <link rel="icon" type="image/png" href="Office_Pro.png">
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --header-bg: #2c3e50;
+      --header-text: #ffffff;
+      --custom-text-color: inherit;
+      --custom-title-color: inherit;
+      --custom-category-color: #007aff;
+      --custom-font-size: 14px;
+      --custom-font-weight: normal;
+      --custom-font-style: normal;
+      --custom-text-decoration: none;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f2f5fa;
+      color: #222222;
+      transition: background-color 0.3s, color 0.3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dark {
+      background: #1c1c1e;
+      color: #eee;
+    }
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .header-fixed {
+      flex-shrink: 0;
+      padding: 12px 15px 8px 15px;
+      background: var(--header-bg);
+      color: var(--header-text);
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: background-color 0.3s ease;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .back-home-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+    }
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      margin: 0;
+      flex: 1;
+      color: var(--custom-title-color);
+    }
+    #search {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.3);
+      font-size: 14px;
+      outline: none;
+      background: rgba(255,255,255,0.9);
+      color: #222;
+    }
+    .content-scrollable {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px 15px 80px 15px;
+      -webkit-overflow-scrolling: touch;
+      color: var(--custom-text-color);
+      font-size: var(--custom-font-size);
+      font-weight: var(--custom-font-weight);
+      font-style: var(--custom-font-style);
+      text-decoration: var(--custom-text-decoration);
+    }
+    .home-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 5px;
+    }
+    .home-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-left: 6px solid transparent;
+    }
+    .dark .home-card { background: #2c2c2e; }
+    .home-card:active { transform: scale(0.98); }
+    .home-card img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 4px;
+    }
+    .home-card .card-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    .home-card .app-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .home-card .app-subtext {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+    .card-word { border-left-color: #185abd; }
+    .card-word .app-name { color: #185abd; }
+    .card-excel { border-left-color: #107c41; }
+    .card-excel .app-name { color: #107c41; }
+    .card-access { border-left-color: #a4373a; }
+    .card-access .app-name { color: #a4373a; }
+    .card-publisher { border-left-color: #0f807e; }
+    .card-publisher .app-name { color: #0f807e; }
+    .card-windows { border-left-color: #0078d4; }
+    .card-windows .app-name { color: #0078d4; }
+
+    .dark .card-word .app-name { color: #478cff; }
+    .dark .card-excel .app-name { color: #34c759; }
+    .dark .card-access .app-name { color: #ff6b6b; }
+    .dark .card-publisher .app-name { color: #30d158; }
+    .dark .card-windows .app-name { color: #60a5fa; }
+
+    .card {
+      background: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark .card { background: #2c2c2e; }
+    .actionText {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      padding-right: 30px;
+    }
+    .desc {
+      font-size: 14px;
+      opacity: 0.85;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 8px;
+      gap: 8px;
+    }
+    .col { width: 50%; }
+    .colTitle {
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      opacity: 0.6;
+      text-transform: uppercase;
+    }
+    .key {
+      display: inline-block;
+      padding: 3px 6px;
+      background: #ffffff;
+      border: 1px solid #c3c7d1;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      margin: 1px;
+    }
+    .dark .key {
+      background: #3a3a3c;
+      border-color: #555;
+      color: #fff;
+    }
+    .win, .mac { font-size: 13px; margin-right: 2px; }
+    .images-container {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .img-preview-box {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: #f8f9fa;
+      text-align: center;
+    }
+    .dark .img-preview-box { background: #222; border-color: rgba(255,255,255,0.1); }
+    .img-preview-box img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      display: block;
+    }
+    .img-link-btn {
+      display: inline-block;
+      font-size: 12px;
+      padding: 4px 8px;
+      color: #007aff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .fav {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #ccc;
+      user-select: none;
+    }
+    .fav.active { color: #ffcc00; }
+    .card-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    .dark .card-actions { border-top-color: rgba(255,255,255,0.08); }
+    .action-icon-btn {
+      background: none;
+      border: none;
+      font-size: 13px;
+      padding: 3px 6px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      color: #666;
+    }
+    .dark .action-icon-btn { color: #aaa; }
+    .deleteBtn {
+      position: absolute;
+      right: -80px;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      background: #ff3b30;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      border-radius: 0 12px 12px 0;
+      transition: right 0.25s ease;
+    }
+    .editBtn {
+      position: absolute;
+      left: -80px;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      background: #007aff;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      border-radius: 12px 0 0 12px;
+      transition: left 0.25s ease;
+    }
+    .menu {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 999;
+      padding-bottom: env(safe-area-inset-bottom);
+      color: #222;
+    }
+    .dark .menu {
+      background: rgba(44,44,46,0.95);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      width: 14%;
+      height: 100%;
+      color: inherit;
+    }
+    .menu-item svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      opacity: 0.75;
+      transition: opacity 0.2s, transform 0.2s, fill 0.2s;
+    }
+    .fx-icon {
+      font-size: 18px;
+      font-weight: 700;
+      font-style: italic;
+      font-family: Georgia, "Times New Roman", serif;
+      opacity: 0.75;
+      transition: opacity 0.2s, transform 0.2s, color 0.2s;
+      user-select: none;
+      line-height: 1;
+    }
+    .menu-item.active svg, .menu-item.active .fx-icon {
+      opacity: 1;
+      transform: scale(1.1);
+      color: #007aff;
+    }
+    .dark .menu-item.active svg, .dark .menu-item.active .fx-icon { color: #0a84ff; }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 88%;
+      max-width: 380px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      display: none;
+      z-index: 9999;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .dark .popup { background: #2c2c2e; color: #eee; }
+    .popup-title {
+      margin-top: 0;
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 17px;
+    }
+    .popup label {
+      font-size: 13px;
+      margin-top: 8px;
+      display: block;
+      font-weight: 600;
+    }
+    .popup input, .popup select, .popup textarea {
+      width: 100%;
+      margin-top: 3px;
+      padding: 7px 9px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      background: #fff;
+      color: #222;
+    }
+    .dark .popup input, .dark .popup select, .dark .popup textarea {
+      background: #3a3a3c;
+      border-color: #555;
+      color: #fff;
+    }
+    .popup button, .btn-small {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 6px;
+      background: #007aff;
+      color: #fff;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .popup button.secondary { background: #8e8e93; margin-top: 6px; }
+    #macSymbols { top: 45%; width: 80%; padding: 10px; }
+    .macKey {
+      width: 32px;
+      height: 32px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .dark .macKey { background: #3a3a3c; color: #fff; border-color: #555; }
+    .category {
+      font-weight: 700;
+      margin: 12px 0 6px;
+      font-size: 16px;
+      color: var(--custom-category-color);
+      transition: color 0.3s;
+    }
+    .image-url-group {
+      margin-top: 6px;
+      padding: 6px;
+      border: 1px dashed #ccc;
+      border-radius: 6px;
+    }
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .setting-row label { margin-top: 0; }
+    .setting-row input[type="color"] {
+      width: 40px;
+      height: 30px;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+    }
+    .style-checkboxes {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    .style-checkboxes label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: normal;
+      margin-top: 0;
+    }
+    .style-checkboxes input { width: auto; margin: 0; }
+  </style>
 </head>
 <body>
 <div class="app">
@@ -20,28 +480,45 @@
     </div>
     <input id="search" placeholder="Rechercher…" style="display:none">
   </div>
+
   <div class="content-scrollable">
     <div id="homePage">
       <div class="home-list">
         <div class="home-card card-word" onclick="openApp('word')">
           <img src="word.png" alt="Word" onerror="this.onerror=null;this.src='word.png'">
-          <div class="card-info"><span class="app-name">Word</span><span class="app-subtext">Raccourcis, Trucs & Astuces</span></div>
+          <div class="card-info">
+            <span class="app-name">Word</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
         </div>
         <div class="home-card card-excel" onclick="openApp('excel')">
           <img src="excel64.png" alt="Excel" onerror="this.onerror=null;this.src='excel64.png'">
-          <div class="card-info"><span class="app-name">Excel</span><span class="app-subtext">Raccourcis, Trucs & Astuces</span></div>
+          <div class="card-info">
+            <span class="app-name">Excel</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
         </div>
         <div class="home-card card-access" onclick="openApp('access')">
           <img src="access.png" alt="Access" onerror="this.onerror=null;this.src='access.png'">
-          <div class="card-info"><span class="app-name">Access</span><span class="app-subtext">Raccourcis, Trucs & Astuces</span></div>
+          <div class="card-info">
+            <span class="app-name">Access</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
         </div>
         <div class="home-card card-publisher" onclick="openApp('publisher')">
           <img src="publisher.png" alt="Publisher" onerror="this.onerror=null;this.src='publisher.png'">
-          <div class="card-info"><span class="app-name">Publisher</span><span class="app-subtext">Raccourcis, Trucs & Astuces</span></div>
+          <div class="card-info">
+            <span class="app-name">Publisher</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
         </div>
+        <!-- Nouvelle carte Windows -->
         <div class="home-card card-windows" onclick="openApp('windows')">
           <img src="windows.png" alt="Windows" onerror="this.onerror=null;this.src='windows.png'">
-          <div class="card-info"><span class="app-name">Windows</span><span class="app-subtext">Raccourcis, Trucs & Astuces</span></div>
+          <div class="card-info">
+            <span class="app-name">Windows</span>
+            <span class="app-subtext">Raccourcis, Trucs & Astuces</span>
+          </div>
         </div>
       </div>
     </div>
@@ -49,6 +526,7 @@
   </div>
 </div>
 
+<!-- Fenêtre d'Ajout -->
 <div id="addPopup" class="popup">
   <h3 class="popup-title">Ajouter un élément</h3>
   <label>Type</label>
@@ -73,6 +551,7 @@
   <button class="secondary" onclick="addPopup.style.display='none'">Fermer</button>
 </div>
 
+<!-- Fenêtre de Modification -->
 <div id="editPopup" class="popup">
   <h3 class="popup-title">Modifier l'élément</h3>
   <label>Action / Titre</label><input id="editAction">
@@ -90,6 +569,7 @@
   <button class="secondary" onclick="editPopup.style.display='none'">Fermer</button>
 </div>
 
+<!-- Paramètres -->
 <div id="settings" class="popup">
   <h3 class="popup-title">Paramètres</h3>
   <label>Thème Sombre</label>
@@ -133,6 +613,7 @@
   <button class="secondary" onclick="settings.style.display='none'">Fermer</button>
 </div>
 
+<!-- Symboles Mac -->
 <div id="macSymbols" class="popup">
   <h3 style="text-align:center;margin-bottom:8px;margin-top:0;font-size:16px">Symboles Mac</h3>
   <div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap">
@@ -148,6 +629,7 @@
   <button class="secondary" onclick="macSymbols.style.display='none'">Fermer</button>
 </div>
 
+<!-- Menu Navigation du bas -->
 <div class="menu">
   <div class="menu-item active" onclick="goHome()"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
   <div class="menu-item" onclick="setActiveNav(this);filterCat('raccourcis')"><svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zM7 13H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm1-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg></div>
@@ -159,23 +641,445 @@
 </div>
 
 <script>
-let currentApp=null,currentCategoryFilter="all",editingItem=null;const appThemes={word:{name:"Word",color:"#185abd"},excel:{name:"Excel",color:"#107c41"},access:{name:"Access",color:"#a4373a"},publisher:{name:"Publisher",color:"#077568"},windows:{name:"Windows",color:"#0078d4"}};let defaultItems=[{app:"excel",type:"raccourcis",action:"Aller à la cellule suivante (droite)",win:"Tab",mac:"Tab",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Copier la sélection",win:"Ctrl + C",mac:"⌘ + C",desc:"",images:[],fav:!1},{app:"excel",type:"formules",action:"=SOMME()",win:"",mac:"",desc:"Additionner une plage de cellules",images:[],fav:!1},{app:"excel",type:"astuces",action:"Tableaux dynamiques",win:"",mac:"",desc:"Ctrl + T pour créer un tableau",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Coller",win:"Ctrl + V",mac:"⌘ + V",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Annuler la dernière action",win:"Ctrl + Z",mac:"⌘ + Z",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Enregistrer",win:"Ctrl + S",mac:"⌘ + S",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Remplir toutes les cellules sélectionnées",win:"Ctrl + Entrée",mac:"⌘ + Entrée",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Ouvrir Format de cellule",win:"Ctrl + I",mac:"⌘ + I",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Mettre en gras",win:"Ctrl + G",mac:"⌘ + B",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Insérer une somme automatique ( SOMME )",win:"Alt + =",mac:"⌘ + ⇧ + T",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Créer un tableau",win:"Ctrl + T",mac:"⌘ + T",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Aller à la cellule précédente ( gauche )",win:"Maj + Tab",mac:"⇧ + Tab",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Aller à la cellule du dessous",win:"Entrée",mac:"Enter",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Aller à la cellule du dessus",win:"Maj + Entrée",mac:"⇧ + Enter",desc:"",images:[],fav:!1},{app:"excel",type:"raccourcis",action:"Sélectionner toute la feuille",win:"Ctrl + A",mac:"⌘ + A",desc:"",images:[],fav:!1},{app:"word",type:"raccourcis",action:"Gras",win:"Ctrl + G",mac:"⌘ + B",desc:"Mettre le texte en gras",images:[],fav:!1},{app:"access",type:"astuces",action:"Créer une requête",win:"",mac:"",desc:"Utiliser le créateur de requêtes SQL",images:[],fav:!1},{app:"publisher",type:"astuces",action:"Repères de page",win:"",mac:"",desc:"Activer les repères pour la mise en page",images:[],fav:!1},{app:"windows",type:"raccourcis",action:"Ouvrir l'Écran d'émojis / symboles",win:"Win + .",mac:"",desc:"Ouvre le panneau d'émojis et symboles",images:[],fav:!1}];let items=JSON.parse(localStorage.getItem("office_pro_items")||"null");items||(items=defaultItems,saveItems());function saveItems(){localStorage.setItem("office_pro_items",JSON.stringify(items))}let userVisualSettings=JSON.parse(localStorage.getItem("office_pro_visuals")||"{}");function initVisualSettings(){document.getElementById("cfgHeaderBg").value=userVisualSettings.headerBg||"#2c3e50",document.getElementById("cfgTitleColor").value=userVisualSettings.titleColor||"#ffffff",document.getElementById("cfgTextColor").value=userVisualSettings.textColor||"#222222",document.getElementById("cfgCategoryColor").value=userVisualSettings.categoryColor||"#007aff",document.getElementById("cfgFontSize").value=userVisualSettings.fontSize||"14px",document.getElementById("cfgBold").checked=userVisualSettings.bold||!1,document.getElementById("cfgItalic").checked=userVisualSettings.italic||!1,document.getElementById("cfgUnderline").checked=userVisualSettings.underline||!1,applyVisualSettings(!1)}function applyVisualSettings(e=!0){const t=document.getElementById("cfgHeaderBg").value,a=document.getElementById("cfgTitleColor").value,n=document.getElementById("cfgTextColor").value,s=document.getElementById("cfgCategoryColor").value,c=document.getElementById("cfgFontSize").value,o=document.getElementById("cfgBold").checked,r=document.getElementById("cfgItalic").checked,i=document.getElementById("cfgUnderline").checked;e&&(userVisualSettings={headerBg:t,titleColor:a,textColor:n,categoryColor:s,fontSize:c,bold:o,italic:r,underline:i},localStorage.setItem("office_pro_visuals",JSON.stringify(userVisualSettings)));const d=document.documentElement;currentApp||d.style.setProperty("--header-bg",t),d.style.setProperty("--custom-title-color",a),d.style.setProperty("--custom-text-color",n),d.style.setProperty("--custom-category-color",s),d.style.setProperty("--custom-font-size",c),d.style.setProperty("--custom-font-weight",o?"bold":"normal"),d.style.setProperty("--custom-font-style",r?"italic":"normal"),d.style.setProperty("--custom-text-decoration",i?"underline":"none")}function goHome(){currentApp=null,currentCategoryFilter="all",title.textContent="Raccourcis, Truc & Astuce";const e=userVisualSettings.headerBg||"#2c3e50";document.documentElement.style.setProperty("--header-bg",e),search.style.display="none",backHomeBtn.style.display="none",homePage.style.display="block",list.style.display="none",setActiveNav(document.querySelectorAll(".menu-item")[0])}function openApp(e){currentApp=e,currentCategoryFilter="all";const t=appThemes[e];title.textContent=t.name,document.documentElement.style.setProperty("--header-bg",t.color),search.style.display="block",backHomeBtn.style.display="block",homePage.style.display="none",list.style.display="block",setActiveNav(document.querySelectorAll(".menu-item")[0]),render()}function setActiveNav(e){document.querySelectorAll(".menu-item").forEach(e=>e.classList.remove("active")),e&&e.classList.add("active")}function addUrlInput(e,t=""){let a=document.getElementById(e);if(a.querySelectorAll("input").length>=5)return void alert("Vous ne pouvez pas ajouter plus de 5 adresses d'images.");let n=document.createElement("div");n.className="image-url-group",n.style.display="flex",n.style.gap="5px",n.style.alignItems="center";let s=document.createElement("input");s.type="url",s.placeholder="https://exemple.com/image.png",s.value=t,s.style.marginTop="0";let c=document.createElement("button");c.type="button",c.textContent="✕",c.style.width="30px",c.style.margin="0",c.style.background="#ff3b30",c.onclick=()=>n.remove(),n.appendChild(s),n.appendChild(c),a.appendChild(n)}function getUrlsFromContainer(e){let t=document.getElementById(e),a=[];return t.querySelectorAll("input").forEach(e=>{let t=e.value.trim();t&&a.push(t)}),a}function exportData(){let e="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(items,null,2)),t=document.createElement("a");t.setAttribute("href",e),t.setAttribute("download","office_raccourcis_sauvegarde.json"),document.body.appendChild(t),t.click(),t.remove()}function copyBackupText(){navigator.clipboard.writeText(JSON.stringify(items,null,2)).then(()=>{alert("Données copiées dans le presse-papier !")})}function showPasteArea(){pasteAreaBlock.style.display="none"===pasteAreaBlock.style.display?"block":"none"}function importFromPastedText(){let e=pasteInput.value.trim();try{let t=JSON.parse(e);Array.isArray(t)&&(items=t,saveItems(),currentApp&&render(),alert("Restauration réussie !"),settings.style.display="none")}catch(e){alert("Texte JSON invalide.")}}function importData(){importFileInput.click()}function handleFileImport(e){let t=e.target.files[0];if(!t)return;let a=new FileReader;a.onload=function(e){try{let t=JSON.parse(e.target.result);Array.isArray(t)&&(items=t,saveItems(),currentApp&&render(),alert("Importation réussie !"),settings.style.display="none")}catch(e){alert("Fichier invalide.")}},a.readAsText(t)}function toggleDark(){document.body.classList.toggle("dark")}function convertKeys(e){return e?e.replace(/\^/g,"Ctrl + ").replace(/Cmd|⌘/gi,'<span class="key"><span class="mac">⌘</span></span>').replace(/Option|⌥/gi,'<span class="key"><span class="mac">⌥</span></span>').replace(/Shift|⇧/gi,'<span class="key"><span class="mac">⇧</span></span>').replace(/Ctrl|⌃/gi,'<span class="key">Ctrl</span>').replace(/Win/gi,'<span class="key"><span class="win">🪟</span></span>').replace(/Tab/gi,'<span class="key">Tab</span>').replace(/Enter/gi,'<span class="key">Enter</span>').replace(/Esc/gi,'<span class="key">Esc</span>').replace(/\+/g," + "):""}function render(){if(!currentApp)return;list.innerHTML="";["raccourcis","formules","astuces"].forEach(e=>{let t=items.filter(t=>t.app===currentApp&&t.type===e);if("all"!==currentCategoryFilter&&"favs"!==currentCategoryFilter&&currentCategoryFilter!==e)return;if(t.length>0||currentCategoryFilter===e){let t=document.createElement("div");t.className="category",t.textContent="formules"===e?"excel"===currentApp?"Formules":"Fonctions":e.charAt(0).toUpperCase()+e.slice(1),list.appendChild(t)}t.forEach(t=>{"favs"!==currentCategoryFilter||t.fav;let a=document.createElement("div");a.className="card";let n=`<div class="actionText">${t.action}</div>`;"raccourcis"===t.type&&(n+=`
+let currentApp = null;
+let currentCategoryFilter = 'all';
+let editingItem = null;
+
+const appThemes = {
+  word: { name: "Word", color: "#185abd" },
+  excel: { name: "Excel", color: "#107c41" },
+  access: { name: "Access", color: "#a4373a" },
+  publisher: { name: "Publisher", color: "#077568" },
+  windows: { name: "Windows", color: "#0078d4" }
+};
+
+let defaultItems = [
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule suivante (droite)", win:"Tab", mac:"Tab", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Copier la sélection", win:"Ctrl + C", mac:"⌘ + C", desc:"", images:[], fav:false},
+  {app:"excel", type:"formules", action:"=SOMME()", win:"", mac:"", desc:"Additionner une plage de cellules", images:[], fav:false},
+  {app:"excel", type:"astuces", action:"Tableaux dynamiques", win:"", mac:"", desc:"Ctrl + T pour créer un tableau", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Coller", win:"Ctrl + V", mac:"⌘ + V", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Annuler la dernière action", win:"Ctrl + Z", mac:"⌘ + Z", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Enregistrer", win:"Ctrl + S", mac:"⌘ + S", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Remplir toutes les cellules sélectionnées", win:"Ctrl + Entrée", mac:"⌘ + Entrée", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Ouvrir Format de cellule", win:"Ctrl + I", mac:"⌘ + I", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Mettre en gras", win:"Ctrl + G", mac:"⌘ + B", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Insérer une somme automatique ( SOMME )", win:"Alt + =", mac:"⌘ + ⇧ + T", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Créer un tableau", win:"Ctrl + T", mac:"⌘ + T", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule précédente ( gauche )", win:"Maj + Tab", mac:"⇧ + Tab", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule du dessous", win:"Entrée", mac:"Enter", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Aller à la cellule du dessus", win:"Maj + Entrée", mac:"⇧ + Enter", desc:"", images:[], fav:false},
+  {app:"excel", type:"raccourcis", action:"Sélectionner toute la feuille", win:"Ctrl + A", mac:"⌘ + A", desc:"", images:[], fav:false},
+  {app:"word", type:"raccourcis", action:"Gras", win:"Ctrl + G", mac:"⌘ + B", desc:"Mettre le texte en gras", images:[], fav:false},
+  {app:"access", type:"astuces", action:"Créer une requête", win:"", mac:"", desc:"Utiliser le créateur de requêtes SQL", images:[], fav:false},
+  {app:"publisher", type:"astuces", action:"Repères de page", win:"", mac:"", desc:"Activer les repères pour la mise en page", images:[], fav:false}
+];
+
+let items = JSON.parse(localStorage.getItem("office_pro_items") || "null");
+if(!items) { items = defaultItems; saveItems(); }
+
+function saveItems(){
+  localStorage.setItem("office_pro_items", JSON.stringify(items));
+}
+
+/* Gestion des réglages visuels dans les paramètres */
+let userVisualSettings = JSON.parse(localStorage.getItem("office_pro_visuals") || "{}");
+
+function initVisualSettings() {
+  document.getElementById("cfgHeaderBg").value = userVisualSettings.headerBg || "#2c3e50";
+  document.getElementById("cfgTitleColor").value = userVisualSettings.titleColor || "#ffffff";
+  document.getElementById("cfgTextColor").value = userVisualSettings.textColor || "#222222";
+  document.getElementById("cfgCategoryColor").value = userVisualSettings.categoryColor || "#007aff";
+  document.getElementById("cfgFontSize").value = userVisualSettings.fontSize || "14px";
+  document.getElementById("cfgBold").checked = userVisualSettings.bold || false;
+  document.getElementById("cfgItalic").checked = userVisualSettings.italic || false;
+  document.getElementById("cfgUnderline").checked = userVisualSettings.underline || false;
+  
+  applyVisualSettings(false);
+}
+
+function applyVisualSettings(save = true) {
+  const headerBg = document.getElementById("cfgHeaderBg").value;
+  const titleColor = document.getElementById("cfgTitleColor").value;
+  const textColor = document.getElementById("cfgTextColor").value;
+  const categoryColor = document.getElementById("cfgCategoryColor").value;
+  const fontSize = document.getElementById("cfgFontSize").value;
+  const bold = document.getElementById("cfgBold").checked;
+  const italic = document.getElementById("cfgItalic").checked;
+  const underline = document.getElementById("cfgUnderline").checked;
+
+  if (save) {
+    userVisualSettings = { headerBg, titleColor, textColor, categoryColor, fontSize, bold, italic, underline };
+    localStorage.setItem("office_pro_visuals", JSON.stringify(userVisualSettings));
+  }
+
+  const root = document.documentElement;
+  if (!currentApp) {
+    root.style.setProperty('--header-bg', headerBg);
+  }
+  root.style.setProperty('--custom-title-color', titleColor);
+  root.style.setProperty('--custom-text-color', textColor);
+  root.style.setProperty('--custom-category-color', categoryColor);
+  root.style.setProperty('--custom-font-size', fontSize);
+  root.style.setProperty('--custom-font-weight', bold ? 'bold' : 'normal');
+  root.style.setProperty('--custom-font-style', italic ? 'italic' : 'normal');
+  root.style.setProperty('--custom-text-decoration', underline ? 'underline' : 'none');
+}
+
+/* Navigation principale */
+function goHome() {
+  currentApp = null;
+  currentCategoryFilter = 'all';
+  title.textContent = "Raccourcis, Truc & Astuce";
+  const defaultHeader = userVisualSettings.headerBg || '#2c3e50';
+  document.documentElement.style.setProperty('--header-bg', defaultHeader);
+  search.style.display = "none";
+  backHomeBtn.style.display = "none";
+  homePage.style.display = "block";
+  list.style.display = "none";
+  setActiveNav(document.querySelectorAll('.menu-item')[0]);
+}
+
+function openApp(appName) {
+  currentApp = appName;
+  currentCategoryFilter = 'all';
+  const theme = appThemes[appName];
+  
+  title.textContent = theme.name;
+  document.documentElement.style.setProperty('--header-bg', theme.color);
+  
+  search.style.display = "block";
+  backHomeBtn.style.display = "block";
+  homePage.style.display = "none";
+  list.style.display = "block";
+  
+  setActiveNav(document.querySelectorAll('.menu-item')[0]);
+  render();
+}
+
+function setActiveNav(el) {
+  document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+/* URLs d'images dynamiques */
+function addUrlInput(containerId, value = "") {
+  let container = document.getElementById(containerId);
+  if (container.querySelectorAll("input").length >= 5) {
+    alert("Vous ne pouvez pas ajouter plus de 5 adresses d'images.");
+    return;
+  }
+
+  let div = document.createElement("div");
+  div.className = "image-url-group";
+  div.style.display = "flex";
+  div.style.gap = "5px";
+  div.style.alignItems = "center";
+  
+  let input = document.createElement("input");
+  input.type = "url";
+  input.placeholder = "https://exemple.com/image.png";
+  input.value = value;
+  input.style.marginTop = "0";
+
+  let removeBtn = document.createElement("button");
+  removeBtn.type = "button";
+  removeBtn.textContent = "✕";
+  removeBtn.style.width = "30px";
+  removeBtn.style.margin = "0";
+  removeBtn.style.background = "#ff3b30";
+  removeBtn.onclick = () => div.remove();
+
+  div.appendChild(input);
+  div.appendChild(removeBtn);
+  container.appendChild(div);
+}
+
+function getUrlsFromContainer(containerId) {
+  let container = document.getElementById(containerId);
+  let urls = [];
+  container.querySelectorAll("input").forEach(inp => {
+    let val = inp.value.trim();
+    if (val) urls.push(val);
+  });
+  return urls;
+}
+
+/* Fonctions d'importation / exportation */
+function exportData() {
+  let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(items, null, 2));
+  let downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute("href", dataStr);
+  downloadAnchor.setAttribute("download", "office_raccourcis_sauvegarde.json");
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+}
+
+function copyBackupText() {
+  navigator.clipboard.writeText(JSON.stringify(items, null, 2)).then(() => {
+    alert("Données copiées dans le presse-papier !");
+  });
+}
+
+function showPasteArea() {
+  pasteAreaBlock.style.display = pasteAreaBlock.style.display === "none" ? "block" : "none";
+}
+
+function importFromPastedText() {
+  let text = pasteInput.value.trim();
+  try {
+    let imported = JSON.parse(text);
+    if (Array.isArray(imported)) {
+      items = imported;
+      saveItems();
+      if(currentApp) render();
+      alert("Restauration réussie !");
+      settings.style.display = 'none';
+    }
+  } catch(err) {
+    alert("Texte JSON invalide.");
+  }
+}
+
+function importData() { importFileInput.click(); }
+
+function handleFileImport(e) {
+  let file = e.target.files[0];
+  if (!file) return;
+  let reader = new FileReader();
+  reader.onload = function(evt) {
+    try {
+      let imported = JSON.parse(evt.target.result);
+      if (Array.isArray(imported)) {
+        items = imported;
+        saveItems();
+        if(currentApp) render();
+        alert("Importation réussie !");
+        settings.style.display = 'none';
+      }
+    } catch(err) { alert("Fichier invalide."); }
+  };
+  reader.readAsText(file);
+}
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+function convertKeys(text){
+  if(!text) return "";
+  return text
+    .replace(/\^/g, 'Ctrl + ')
+    .replace(/Cmd|⌘/gi, '<span class="key"><span class="mac">⌘</span></span>')
+    .replace(/Option|⌥/gi, '<span class="key"><span class="mac">⌥</span></span>')
+    .replace(/Shift|⇧/gi, '<span class="key"><span class="mac">⇧</span></span>')
+    .replace(/Ctrl|⌃/gi, '<span class="key">Ctrl</span>')
+    .replace(/Win/gi, '<span class="key"><span class="win">🪟</span></span>')
+    .replace(/Tab/gi, '<span class="key">Tab</span>')
+    .replace(/Enter/gi, '<span class="key">Enter</span>')
+    .replace(/Esc/gi, '<span class="key">Esc</span>')
+    .replace(/\+/g, ' + ');
+}
+
+/* Rendu de la liste */
+function render(){
+  if(!currentApp) return;
+  list.innerHTML = "";
+  let cats = ["raccourcis", "formules", "astuces"];
+
+  cats.forEach(cat => {
+    let appItems = items.filter(i => i.app === currentApp && i.type === cat);
+
+    if (currentCategoryFilter !== 'all' && currentCategoryFilter !== 'favs' && currentCategoryFilter !== cat) return;
+
+    if (appItems.length > 0 || currentCategoryFilter === cat) {
+      let titleCat = document.createElement("div");
+      titleCat.className = "category";
+      titleCat.textContent = cat === "formules" ? (currentApp === "excel" ? "Formules" : "Fonctions") : cat.charAt(0).toUpperCase() + cat.slice(1);
+      list.appendChild(titleCat);
+    }
+
+    appItems.forEach(i => {
+      if (currentCategoryFilter === 'favs' && !i.fav) return;
+
+      let card = document.createElement("div");
+      card.className = "card";
+
+      let innerContent = `<div class="actionText">${i.action}</div>`;
+
+      if(i.type === "raccourcis"){
+        innerContent += `
           <div class="row">
-            <div class="col"><div class="colTitle">Windows</div><div>${convertKeys(t.win)}</div></div>
-            <div class="col"><div class="colTitle">Mac</div><div>${convertKeys(t.mac)}</div></div>
-          </div>`),t.desc&&(n+=`<div class="desc">${t.desc}</div>`),t.images&&t.images.length>0&&(n+='<div class="images-container">',t.images.forEach((e,t)=>{n+=`
+            <div class="col"><div class="colTitle">Windows</div><div>${convertKeys(i.win)}</div></div>
+            <div class="col"><div class="colTitle">Mac</div><div>${convertKeys(i.mac)}</div></div>
+          </div>`;
+      }
+
+      if(i.desc) innerContent += `<div class="desc">${i.desc}</div>`;
+
+      if(i.images && i.images.length > 0) {
+        innerContent += `<div class="images-container">`;
+        i.images.forEach((imgUrl, idx) => {
+          innerContent += `
             <div class="img-preview-box">
-              <img src="${e}" alt="Image ${t+1}" onerror="this.style.display='none'">
-              <a href="${e}" target="_blank" class="img-link-btn">🔗 Ouvrir l'image ${t+1}</a>
-            </div>`}),n+="</div>"),n+=`
-        <div class="fav ${t.fav?"active":""}">★</div>
+              <img src="${imgUrl}" alt="Image ${idx+1}" onerror="this.style.display='none'">
+              <a href="${imgUrl}" target="_blank" class="img-link-btn">🔗 Ouvrir l'image ${idx+1}</a>
+            </div>`;
+        });
+        innerContent += `</div>`;
+      }
+
+      innerContent += `
+        <div class="fav ${i.fav ? 'active' : ''}">★</div>
         <div class="card-actions">
           <button class="action-icon-btn edit-trigger">✏️ Modifier</button>
           <button class="action-icon-btn delete-trigger" style="color:#ff3b30;">🗑️ Supprimer</button>
         </div>
         <div class="editBtn">✏️</div>
         <div class="deleteBtn">🗑️</div>
-      `,a.innerHTML=n,a.querySelector(".fav").onclick=e=>{e.stopPropagation(),t.fav=!t.fav,saveItems(),render()};const s=e=>{e.stopPropagation(),confirm("Supprimer cet élément ?")&&(items=items.filter(e=>e!==t),saveItems(),render())};a.querySelector(".deleteBtn").onclick=s,a.querySelector(".delete-trigger").onclick=s;const c=e=>{e.stopPropagation(),openEditPopup(t)};a.querySelector(".editBtn").onclick=c,a.querySelector(".edit-trigger").onclick=c;let o=0;a.addEventListener("touchstart",e=>o=e.touches[0].clientX,{passive:!0}),a.addEventListener("touchend",e=>{let t=o-e.changedTouches[0].clientX;t>50?(a.querySelector(".deleteBtn").style.right="0px",a.querySelector(".editBtn").style.left="-80px"):t<-50?(a.querySelector(".editBtn").style.left="0px",a.querySelector(".deleteBtn").style.right="-80px"):Math.abs(t)<10&&(a.querySelector(".deleteBtn").style.right="-80px",a.querySelector(".editBtn").style.left="-80px")},{passive:!0}),list.appendChild(a)})})}function toggleAddFields(){"raccourcis"===addType.value?(addRaccourciFields.style.display="block",addDescField.style.display="none"):(addRaccourciFields.style.display="none",addDescField.style.display="block")}function openAddPopup(){if(!currentApp)return void alert("Veuillez d'abord choisir une application (Word, Excel, etc.) avant d'ajouter un élément.");addType.value="formules",toggleAddFields(),addAction.value="",addWin.value="",addMac.value="",addDesc.value="",addImageUrlsContainer.innerHTML="",addUrlInput("addImageUrlsContainer"),addPopup.style.display="block"}function addItem(){let e=addType.value,t=addAction.value.trim(),a=addWin.value.trim(),n=addMac.value.trim(),s=addDesc.value.trim(),c=getUrlsFromContainer("addImageUrlsContainer");if(!t)return void alert("Saisissez un titre.");items.push({app:currentApp,type:e,action:t,win:a,mac:n,desc:s,images:c,fav:!1}),saveItems(),filterCat(e),addPopup.style.display="none"}function openEditPopup(e){editingItem=e,editAction.value=e.action||"",editWin.value=e.win||"",editMac.value=e.mac||"",editDesc.value=e.desc||"",editImageUrlsContainer.innerHTML="",e.images&&e.images.length>0?e.images.forEach(e=>addUrlInput("editImageUrlsContainer",e)):addUrlInput("editImageUrlsContainer"),editRaccourciFields.style.display="raccourcis"===e.type?"block":"none",editPopup.style.display="block"}function saveEdit(){editingItem&&(editingItem.action=editAction.value.trim(),editingItem.win=editWin.value.trim(),editingItem.mac=editMac.value.trim(),editingItem.desc=editDesc.value.trim(),editingItem.images=getUrlsFromContainer("editImageUrlsContainer"),saveItems(),render(),editPopup.style.display="none")}addMac.onclick=()=>{window.currentMacField=addMac,macSymbols.style.display="block"},editMac.onclick=()=>{window.currentMacField=editMac,macSymbols.style.display="block"};function insertMacSymbol(e){window.currentMacField&&(window.currentMacField.value+=(window.currentMacField.value?" ":"")+e)}search.oninput=()=>{let e=search.value.toLowerCase().trim();document.querySelectorAll(".card").forEach(t=>{t.style.display=t.textContent.toLowerCase().includes(e)?"":"none"})};function filterCat(e){currentApp&&(currentCategoryFilter=e,search.value="",render())}function showFavs(){currentApp&&(currentCategoryFilter="favs",search.value="",render())}initVisualSettings(),goHome();
+      `;
+
+      card.innerHTML = innerContent;
+
+      card.querySelector(".fav").onclick = (e) => {
+        e.stopPropagation();
+        i.fav = !i.fav;
+        saveItems(); render();
+      };
+
+      const deleteAction = (e) => {
+        e.stopPropagation();
+        if(confirm("Supprimer cet élément ?")) {
+          items = items.filter(x => x !== i);
+          saveItems(); render();
+        }
+      };
+      card.querySelector(".deleteBtn").onclick = deleteAction;
+      card.querySelector(".delete-trigger").onclick = deleteAction;
+
+      const editAction = (e) => {
+        e.stopPropagation();
+        openEditPopup(i);
+      };
+      card.querySelector(".editBtn").onclick = editAction;
+      card.querySelector(".edit-trigger").onclick = editAction;
+
+      /* Swipe mobile */
+      let startX = 0;
+      card.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive: true});
+      card.addEventListener("touchend", e => {
+        let diff = startX - e.changedTouches[0].clientX;
+        if(diff > 50){ card.querySelector(".deleteBtn").style.right = "0px"; card.querySelector(".editBtn").style.left = "-80px"; } 
+        else if(diff < -50) { card.querySelector(".editBtn").style.left = "0px"; card.querySelector(".deleteBtn").style.right = "-80px"; }
+        else if (Math.abs(diff) < 10) { card.querySelector(".deleteBtn").style.right = "-80px"; card.querySelector(".editBtn").style.left = "-80px"; }
+      }, {passive: true});
+
+      list.appendChild(card);
+    });
+  });
+}
+
+function toggleAddFields() {
+  if(addType.value === "raccourcis") {
+    addRaccourciFields.style.display = "block";
+    addDescField.style.display = "none";
+  } else {
+    addRaccourciFields.style.display = "none";
+    addDescField.style.display = "block";
+  }
+}
+
+function openAddPopup(){
+  if (!currentApp) {
+    alert("Veuillez d'abord choisir une application (Word, Excel, etc.) avant d'ajouter un élément.");
+    return;
+  }
+  addType.value = "formules";
+  toggleAddFields();
+  addAction.value = ""; addWin.value = ""; addMac.value = ""; addDesc.value = "";
+  addImageUrlsContainer.innerHTML = "";
+  addUrlInput('addImageUrlsContainer');
+  addPopup.style.display = "block";
+}
+
+function addItem(){
+  let type = addType.value;
+  let action = addAction.value.trim();
+  let win = addWin.value.trim();
+  let mac = addMac.value.trim();
+  let desc = addDesc.value.trim();
+  let images = getUrlsFromContainer('addImageUrlsContainer');
+
+  if(!action){ alert("Saisissez un titre."); return; }
+
+  items.push({app: currentApp, type, action, win, mac, desc, images, fav: false});
+  saveItems();
+  filterCat(type);
+  addPopup.style.display = "none";
+}
+
+function openEditPopup(item) {
+  editingItem = item;
+  editAction.value = item.action || "";
+  editWin.value = item.win || "";
+  editMac.value = item.mac || "";
+  editDesc.value = item.desc || "";
+
+  editImageUrlsContainer.innerHTML = "";
+  if (item.images && item.images.length > 0) {
+    item.images.forEach(url => addUrlInput('editImageUrlsContainer', url));
+  } else {
+    addUrlInput('editImageUrlsContainer');
+  }
+
+  editRaccourciFields.style.display = item.type === "raccourcis" ? "block" : "none";
+  editPopup.style.display = "block";
+}
+
+function saveEdit(){
+  if(!editingItem) return;
+  editingItem.action = editAction.value.trim();
+  editingItem.win = editWin.value.trim();
+  editingItem.mac = editMac.value.trim();
+  editingItem.desc = editDesc.value.trim();
+  editingItem.images = getUrlsFromContainer('editImageUrlsContainer');
+  
+  saveItems(); render();
+  editPopup.style.display = "none";
+}
+
+addMac.onclick = () => { window.currentMacField = addMac; macSymbols.style.display = "block"; };
+editMac.onclick = () => { window.currentMacField = editMac; macSymbols.style.display = "block"; };
+
+function insertMacSymbol(sym){
+  if(window.currentMacField) window.currentMacField.value += (window.currentMacField.value ? " " : "") + sym;
+}
+
+search.oninput = () => {
+  let q = search.value.toLowerCase().trim();
+  document.querySelectorAll(".card").forEach(c => {
+    c.style.display = c.textContent.toLowerCase().includes(q) ? "" : "none";
+  });
+};
+
+function filterCat(cat){
+  if(!currentApp) return;
+  currentCategoryFilter = cat;
+  search.value = "";
+  render();
+}
+
+function showFavs(){
+  if(!currentApp) return;
+  currentCategoryFilter = 'favs';
+  search.value = "";
+  render();
+}
+
+// Initialiser les réglages visuels et démarrer sur l'accueil
+initVisualSettings();
+goHome();
 </script>
 </body>
 </html>
